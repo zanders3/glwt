@@ -15,26 +15,25 @@ Here is an example of where I want to get with this API. A lofty goal ;)
 
     #include "glwt.h"
 
-    void main()
+    bool Game::Setup(int argc, const char** argv)
     {
     	//Initialise an OpenGL context and open a window.
     	Window::Open(800,600,false);
 
     	//We now have an Open GL context!
     	GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    }
 
-    	//Returns true whilst the user has got the window open.
-    	while (Window::IsOpen())
-    	{
-    		GL::Clear();
-	    	Window::SwapBuffers();
+    void Game::Update(float dt)
+    {
+        GL::Clear();
+        Window::SwapBuffers();
 
-	    	if (Input::KeyPressed(Key::Escape))
-	    	{
-	    		//Closes the window, which causes Window::IsOpen() to return false.
-	    		Window::Close();
-	    	}
-	    }
+        if (Input::KeyPressed(Key::Escape))
+        {
+            //Closes the window, which causes Window::IsOpen() to return false.
+            Window::Close();
+        }
     }
 
 Current Features
@@ -46,7 +45,6 @@ Current Features
 * Modern OpenGL 3.2+ Support
     * The old APIs no longer exist, making things much cleaner.
 * Open a Window in 1 line of code
-* You keep full control of the rendering loop
 * Mac OSX support (OSX 10.7+)
 * No additional library dependencies (e.g. GLEW, etc)
 
@@ -62,4 +60,4 @@ Planned Features
 
 Status
 ------
-I've only just started this project so we'll see how it goes! I hope this will allow me to get more projects started up in OpenGL quicker than ever before.
+I've only just started this project so we'll see how it goes! I hope this will allow me to get more projects started up in OpenGL quicker than ever before, once I've finished dealing with all of this boilerplate.

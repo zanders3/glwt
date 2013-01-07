@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FA2B5B9E169A223300F143BD"
-               BuildableName = "glwt"
+               BlueprintIdentifier = "FA2B5BDD169A4B3500F143BD"
+               BuildableName = "glwt.app"
                BlueprintName = "glwt"
                ReferencedContainer = "container:glwt.xcodeproj">
             </BuildableReference>
@@ -32,8 +32,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FA2B5B9E169A223300F143BD"
-            BuildableName = "glwt"
+            BlueprintIdentifier = "FA2B5BDD169A4B3500F143BD"
+            BuildableName = "glwt.app"
             BlueprintName = "glwt"
             ReferencedContainer = "container:glwt.xcodeproj">
          </BuildableReference>
@@ -51,8 +51,8 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FA2B5B9E169A223300F143BD"
-            BuildableName = "glwt"
+            BlueprintIdentifier = "FA2B5BDD169A4B3500F143BD"
+            BuildableName = "glwt.app"
             BlueprintName = "glwt"
             ReferencedContainer = "container:glwt.xcodeproj">
          </BuildableReference>
@@ -69,8 +69,8 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FA2B5B9E169A223300F143BD"
-            BuildableName = "glwt"
+            BlueprintIdentifier = "FA2B5BDD169A4B3500F143BD"
+            BuildableName = "glwt.app"
             BlueprintName = "glwt"
             ReferencedContainer = "container:glwt.xcodeproj">
          </BuildableReference>
