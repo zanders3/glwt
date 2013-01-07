@@ -7,6 +7,7 @@
 //
 
 #include "glwt.h"
+#include <OpenGL/gl.h>
 
 void GL::ClearColor(float r, float g, float b, float a)
 {

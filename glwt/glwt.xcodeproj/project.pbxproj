@@ -8,17 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		FA2B5BE3169A4B3500F143BD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2B5BE2169A4B3500F143BD /* Cocoa.framework */; };
-		FA2B5BED169A4B3500F143BD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA2B5BEB169A4B3500F143BD /* InfoPlist.strings */; };
-		FA2B5BEF169A4B3500F143BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2B5BEE169A4B3500F143BD /* main.m */; };
-		FA2B5BF3169A4B3600F143BD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FA2B5BF1169A4B3600F143BD /* Credits.rtf */; };
-		FA2B5BF6169A4B3600F143BD /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA2B5BF5169A4B3600F143BD /* AppDelegate.mm */; };
-		FA2B5BF9169A4B3600F143BD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA2B5BF7169A4B3600F143BD /* MainMenu.xib */; };
-		FA2B5C01169A4B8B00F143BD /* GLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA2B5C00169A4B8B00F143BD /* GLView.mm */; };
 		FA2B5C03169A4CBB00F143BD /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2B5C02169A4CBB00F143BD /* OpenGL.framework */; };
+		FACF274E169B80F5000D4C13 /* GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF274D169B80F5000D4C13 /* GL.cpp */; };
 		FAEB2151169B64A900B5EA1D /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2150169B64A900B5EA1D /* Game.cpp */; };
-		FAEB2153169B679B00B5EA1D /* Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2152169B679B00B5EA1D /* Window.mm */; };
-		FAEB2155169B6AD600B5EA1D /* GL.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2154169B6AD600B5EA1D /* GL.mm */; };
 		FAEB2157169B74EC00B5EA1D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEB2156169B74EC00B5EA1D /* CoreVideo.framework */; };
+		FAEB2168169B7F5300B5EA1D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB215A169B7F5300B5EA1D /* AppDelegate.mm */; };
+		FAEB216B169B7F5300B5EA1D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAEB215F169B7F5300B5EA1D /* MainMenu.xib */; };
+		FAEB216D169B7F5300B5EA1D /* GLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2163169B7F5300B5EA1D /* GLView.mm */; };
+		FAEB216F169B7F5300B5EA1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2166169B7F5300B5EA1D /* main.m */; };
+		FAEB2170169B7F5300B5EA1D /* Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2167169B7F5300B5EA1D /* Window.mm */; };
+		FAEB2172169B7FD400B5EA1D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAEB215D169B7F5300B5EA1D /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,22 +26,21 @@
 		FA2B5BE5169A4B3500F143BD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		FA2B5BE6169A4B3500F143BD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FA2B5BE7169A4B3500F143BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		FA2B5BEA169A4B3500F143BD /* glwt-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "glwt-Info.plist"; sourceTree = "<group>"; };
-		FA2B5BEC169A4B3500F143BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		FA2B5BEE169A4B3500F143BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		FA2B5BF0169A4B3600F143BD /* glwt-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "glwt-Prefix.pch"; sourceTree = "<group>"; };
-		FA2B5BF2169A4B3600F143BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		FA2B5BF4169A4B3600F143BD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		FA2B5BF5169A4B3600F143BD /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		FA2B5BF8169A4B3600F143BD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		FA2B5BFF169A4B8B00F143BD /* GLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLView.h; sourceTree = "<group>"; };
-		FA2B5C00169A4B8B00F143BD /* GLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLView.mm; sourceTree = "<group>"; };
 		FA2B5C02169A4CBB00F143BD /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		FACF274D169B80F5000D4C13 /* GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL.cpp; sourceTree = "<group>"; };
 		FAEB214D169B63E400B5EA1D /* glwt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glwt.h; sourceTree = "<group>"; };
 		FAEB2150169B64A900B5EA1D /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = ../game/Game.cpp; sourceTree = "<group>"; };
-		FAEB2152169B679B00B5EA1D /* Window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Window.mm; sourceTree = "<group>"; };
-		FAEB2154169B6AD600B5EA1D /* GL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GL.mm; sourceTree = "<group>"; };
 		FAEB2156169B74EC00B5EA1D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FAEB2159169B7F5300B5EA1D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FAEB215A169B7F5300B5EA1D /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		FAEB215E169B7F5300B5EA1D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FAEB2160169B7F5300B5EA1D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		FAEB2162169B7F5300B5EA1D /* GLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLView.h; sourceTree = "<group>"; };
+		FAEB2163169B7F5300B5EA1D /* GLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLView.mm; sourceTree = "<group>"; };
+		FAEB2164169B7F5300B5EA1D /* glwt-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "glwt-Info.plist"; sourceTree = "<group>"; };
+		FAEB2165169B7F5300B5EA1D /* glwt-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "glwt-Prefix.pch"; sourceTree = "<group>"; };
+		FAEB2166169B7F5300B5EA1D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FAEB2167169B7F5300B5EA1D /* Window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Window.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,29 +99,11 @@
 		FA2B5BE8169A4B3500F143BD /* glwt */ = {
 			isa = PBXGroup;
 			children = (
+				FACF274D169B80F5000D4C13 /* GL.cpp */,
+				FAEB2158169B7F5300B5EA1D /* mac */,
 				FAEB214D169B63E400B5EA1D /* glwt.h */,
-				FA2B5BF4169A4B3600F143BD /* AppDelegate.h */,
-				FA2B5BF5169A4B3600F143BD /* AppDelegate.mm */,
-				FA2B5BF7169A4B3600F143BD /* MainMenu.xib */,
-				FA2B5BE9169A4B3500F143BD /* Supporting Files */,
-				FA2B5BFF169A4B8B00F143BD /* GLView.h */,
-				FA2B5C00169A4B8B00F143BD /* GLView.mm */,
-				FAEB2152169B679B00B5EA1D /* Window.mm */,
-				FAEB2154169B6AD600B5EA1D /* GL.mm */,
 			);
 			path = glwt;
-			sourceTree = "<group>";
-		};
-		FA2B5BE9169A4B3500F143BD /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				FA2B5BEA169A4B3500F143BD /* glwt-Info.plist */,
-				FA2B5BEB169A4B3500F143BD /* InfoPlist.strings */,
-				FA2B5BEE169A4B3500F143BD /* main.m */,
-				FA2B5BF0169A4B3600F143BD /* glwt-Prefix.pch */,
-				FA2B5BF1169A4B3600F143BD /* Credits.rtf */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		FAEB214F169B647D00B5EA1D /* game */ = {
@@ -132,6 +112,31 @@
 				FAEB2150169B64A900B5EA1D /* Game.cpp */,
 			);
 			name = game;
+			sourceTree = "<group>";
+		};
+		FAEB2158169B7F5300B5EA1D /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB2171169B7F6200B5EA1D /* Supporting Files */,
+				FAEB2159169B7F5300B5EA1D /* AppDelegate.h */,
+				FAEB215A169B7F5300B5EA1D /* AppDelegate.mm */,
+				FAEB2162169B7F5300B5EA1D /* GLView.h */,
+				FAEB2163169B7F5300B5EA1D /* GLView.mm */,
+				FAEB2166169B7F5300B5EA1D /* main.m */,
+				FAEB2167169B7F5300B5EA1D /* Window.mm */,
+			);
+			path = mac;
+			sourceTree = "<group>";
+		};
+		FAEB2171169B7F6200B5EA1D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FAEB2165169B7F5300B5EA1D /* glwt-Prefix.pch */,
+				FAEB2164169B7F5300B5EA1D /* glwt-Info.plist */,
+				FAEB215D169B7F5300B5EA1D /* InfoPlist.strings */,
+				FAEB215F169B7F5300B5EA1D /* MainMenu.xib */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,9 +190,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA2B5BED169A4B3500F143BD /* InfoPlist.strings in Resources */,
-				FA2B5BF3169A4B3600F143BD /* Credits.rtf in Resources */,
-				FA2B5BF9169A4B3600F143BD /* MainMenu.xib in Resources */,
+				FAEB2172169B7FD400B5EA1D /* InfoPlist.strings in Resources */,
+				FAEB216B169B7F5300B5EA1D /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,38 +202,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA2B5BEF169A4B3500F143BD /* main.m in Sources */,
-				FA2B5BF6169A4B3600F143BD /* AppDelegate.mm in Sources */,
-				FA2B5C01169A4B8B00F143BD /* GLView.mm in Sources */,
 				FAEB2151169B64A900B5EA1D /* Game.cpp in Sources */,
-				FAEB2153169B679B00B5EA1D /* Window.mm in Sources */,
-				FAEB2155169B6AD600B5EA1D /* GL.mm in Sources */,
+				FAEB2168169B7F5300B5EA1D /* AppDelegate.mm in Sources */,
+				FAEB216D169B7F5300B5EA1D /* GLView.mm in Sources */,
+				FAEB216F169B7F5300B5EA1D /* main.m in Sources */,
+				FAEB2170169B7F5300B5EA1D /* Window.mm in Sources */,
+				FACF274E169B80F5000D4C13 /* GL.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FA2B5BEB169A4B3500F143BD /* InfoPlist.strings */ = {
+		FAEB215D169B7F5300B5EA1D /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FA2B5BEC169A4B3500F143BD /* en */,
+				FAEB215E169B7F5300B5EA1D /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		FA2B5BF1169A4B3600F143BD /* Credits.rtf */ = {
+		FAEB215F169B7F5300B5EA1D /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FA2B5BF2169A4B3600F143BD /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		FA2B5BF7169A4B3600F143BD /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FA2B5BF8169A4B3600F143BD /* en */,
+				FAEB2160169B7F5300B5EA1D /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -294,8 +290,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "glwt/glwt-Prefix.pch";
-				INFOPLIST_FILE = "glwt/glwt-Info.plist";
+				GCC_PREFIX_HEADER = "glwt/mac/glwt-Prefix.pch";
+				INFOPLIST_FILE = "glwt/mac/glwt-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -307,8 +303,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "glwt/glwt-Prefix.pch";
-				INFOPLIST_FILE = "glwt/glwt-Info.plist";
+				GCC_PREFIX_HEADER = "glwt/mac/glwt-Prefix.pch";
+				INFOPLIST_FILE = "glwt/mac/glwt-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

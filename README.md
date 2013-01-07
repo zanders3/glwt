@@ -22,6 +22,9 @@ Here is an example of where I want to get with this API. A lofty goal ;)
 
     	//We now have an Open GL context!
     	GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+        //We loaded sucessfully
+        return true;
     }
 
     void Game::Update(float dt)
