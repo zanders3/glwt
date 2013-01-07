@@ -7,6 +7,8 @@
 #ifndef glwt_glwt_h
 #define glwt_glwt_h
 
+#include "GL.h"
+
 class NoCopy
 {
 private:
@@ -29,13 +31,6 @@ public:
     static void Close();
     static int Width();
     static int Height();
-};
-
-class GL : NoCopy
-{
-public:
-    static void ClearColor(float r, float g, float b, float a);
-    static void Clear();
 };
 
 struct Key

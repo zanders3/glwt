@@ -5,7 +5,6 @@
  **/
 
 #include "glwt.h"
-#include "OpenGL/OpenGL.h"
 
 bool Game::Setup(int argc, const char** argv)
 {
@@ -18,5 +17,5 @@ bool Game::Setup(int argc, const char** argv)
 
 void Game::Draw(float deltaTime)
 {
-    GL::Clear();
+    GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
