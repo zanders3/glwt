@@ -110,7 +110,7 @@ int GL::Init(void)
 	return parse_version();
 }
 
-int GL::IsSupported(int major, int minor)
+bool GL::IsSupported(int major, int minor)
 {
 	if (major < 3)
 		return 0;

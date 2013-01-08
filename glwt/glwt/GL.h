@@ -27,7 +27,7 @@ class GL
 public:
 /* gl3w api */
 	static int Init();
-	static int IsSupported(int major, int minor);
+	static bool IsSupported(int major, int minor);
 	static void* GetProcAddress(const char *proc);
 	static const Version& GetVersion();
 

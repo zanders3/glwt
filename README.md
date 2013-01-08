@@ -29,12 +29,23 @@ Planned Features
     * Windows
     * Linux
 
-Getting Started
----------------
+Documentation
+-------------
 
-So long, BOILERPLATE CODE!
+### Game ###
+This is the main entry point for the application. Your code goes here.
 
-    #include "glwt.h"
+    static bool Setup(int argc, const char*\* argv);
+
+> Replaces your main function (this is platform specific anyway). You should open a window here and initialize OpenGL objects, load textures, etc.
+> Returning false closes the application cleanly.
+
+    static void Draw(float deltaTime);
+
+> Called every frame with the time in seconds since the last frame.
+
+***Sample Code***
+This will open an 800x600 window and clear the screen to black.
 
     bool Game::Setup(int argc, const char** argv)
     {
@@ -55,48 +66,41 @@ So long, BOILERPLATE CODE!
         GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-Documentation
--------------
-
-### Game ###
-This is the main entry point for the application. Your code goes here.
-
-**static bool Setup(int argc, const char** argv);**
-
-Replaces your main function (this is platform specific anyway). You should open a window here and initialize OpenGL objects, load textures, etc.
-Returning false closes the application cleanly.
-
-**static void Draw(float deltaTime);**
-
-Called every frame with the time in seconds since the last frame.
-
-***Sample Code***
-
-    bool Game::Setup(int argc, const char** argv)
-    {
-        //Initialise an OpenGL 3.2 Core context and open a window (set to true for fullscreen)
-        if (!Window::Open(800,600,false))
-            return false;
-
-        //We now have an Open GL context!
-        GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-        //We loaded sucessfully! Woo!
-        return true;
-    }
-
 ### Window ###
+Handles the window and the creation of an OpenGL context.
 
-
-
-class Window
-{
-public:
     static bool Open(int width, int height, bool fullscreen, const char* windowTitle);
-    static void Close();
-    static int Width();
-    static int Height();
-    
-    static void ShowMessageBox(const char* message);
-};
+> Opens a window with the given width, height and window title. Setting fullscreen to true creates a fullscreen window with that screen resolution.
+
+    static void Close()
+> Closes the window, which closes the whole application.
+
+    static int Width()
+> Returns the current window width.
+
+    static int Height()
+> Returns the current window height.
+
+    static void ShowMessageBox(const char* message)
+> Displays a pop-up dialogue containing the message.
+
+### GL ###
+The GL class provides access to all of the OpenGL core functions. This is based off the [gl3w library](https://github.com/skaslev/gl3w).
+
+    static int Init();
+
+> Loads all of the OpenGL functions. This is called automatically by Window::Open(). (See [http://www.opengl.org/wiki/Load_OpenGL_Functions] for more info on why this happens).
+
+    static bool IsSupported(int major, int minor)
+
+> Returns true if the current context supports the major and minor version number.
+
+    static void* GetProcAddress(const char *proc)
+
+> Returns the function call address for an OpenGL function.
+
+    static const Version& GetVersion()
+
+> Returns a structure representing the OpenGL version.
+
 
