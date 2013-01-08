@@ -17,6 +17,11 @@
 #define __gl_h_
 #endif
 
+struct Version 
+{
+	int major, minor;
+};
+
 class GL
 {
 public:
@@ -24,6 +29,7 @@ public:
 	static int Init();
 	static int IsSupported(int major, int minor);
 	static void* GetProcAddress(const char *proc);
+	static const Version& GetVersion();
 
 /* OpenGL functions */
 	static PFNGLCULLFACEPROC CullFace;

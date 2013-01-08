@@ -9,6 +9,8 @@
 #include "glwt.h"
 #import "GLView.h"
 #import "AppDelegate.h"
+#include <string>
+#include <sstream>
 
 NSWindow* window = nil;
 int gWidth, gHeight;
@@ -34,18 +36,22 @@ bool Window::Open(int width, int height, bool fullscreen, const char* windowTitl
         [window setHidesOnDeactivate:YES];
     }
    
-    //create an OpenGL context
-    NSOpenGLPixelFormatAttribute attrs[] =
+    //Request an OpenGL 3.2 context (bleurgh... horrible. wtf apple)
+    CGLPixelFormatAttribute attribs[] =
     {
-        NSOpenGLPFADoubleBuffer,
-        NSOpenGLPFAColorSize, 32,
-        NSOpenGLPFAAccelerated,
-        NSOpenGLPFADoubleBuffer,
-        NSOpenGLPFASingleRenderer,
-        0
+        kCGLPFAOpenGLProfile, (CGLPixelFormatAttribute)kCGLOGLPVersion_3_2_Core,
+        kCGLPFAAccelerated,
+        kCGLPFANoRecovery,
+        kCGLPFAColorSize, (CGLPixelFormatAttribute)24,
+        kCGLPFADepthSize, (CGLPixelFormatAttribute)16,
+        kCGLPFADoubleBuffer,
+        (CGLPixelFormatAttribute)0
     };
-    NSOpenGLPixelFormat* pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attrs];
+    CGLPixelFormatObj cglPixelFormat = NULL;
+    GLint numPixelFormats;
+    CGLChoosePixelFormat (attribs, &cglPixelFormat, &numPixelFormats);
     
+    NSOpenGLPixelFormat* pixelFormat = [[NSOpenGLPixelFormat alloc] initWithCGLPixelFormatObj:cglPixelFormat];
     NSRect viewRect = NSMakeRect(0.0, 0.0, mainDisplayRect.size.width, mainDisplayRect.size.height);
     GLView *fullScreenView = [[GLView alloc] initWithFrame:viewRect pixelFormat: pixelFormat];
     
@@ -54,7 +60,14 @@ bool Window::Open(int width, int height, bool fullscreen, const char* windowTitl
     [[fullScreenView openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
     
     //Load Open GL functions
-    GL::Init();
+    if (GL::Init() != 0)
+    {
+        std::stringstream errMsg;
+        const Version& version = GL::GetVersion();
+        errMsg << "Unsupported version of OpenGL (" << version.major << "." << version.minor << "). Please upgrade your graphics drivers.";
+        Window::ShowMessageBox(errMsg.str().c_str());
+        return false;
+    }
     
     //Add the OpenGL view to the window
     [window setContentView: fullScreenView];
@@ -80,3 +93,11 @@ int Window::Height()
 {
     return gHeight;
 }
+
+void Window::ShowMessageBox(const char *message)
+{
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    [alert setMessageText:[NSString stringWithUTF8String:message]];
+    [alert runModal];
+}
+

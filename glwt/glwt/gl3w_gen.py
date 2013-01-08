@@ -53,6 +53,11 @@ with open('GL.h', 'wb') as f:
 #define __gl_h_
 #endif
 
+struct Version 
+{
+	int major, minor;
+};
+
 class GL
 {
 public:
@@ -60,6 +65,7 @@ public:
 	static int Init();
 	static int IsSupported(int major, int minor);
 	static void* GetProcAddress(const char *proc);
+	static const Version& GetVersion();
 
 /* OpenGL functions */
 ''')
@@ -161,9 +167,7 @@ static void *get_proc(const char *proc)
 }
 #endif
 
-static struct {
-	int major, minor;
-} version;
+Version version;
 
 static int parse_version(void)
 {
@@ -195,6 +199,11 @@ int GL::IsSupported(int major, int minor)
 	if (version.major == major)
 		return version.minor >= minor;
 	return version.major >= major;
+}
+
+const Version& GL::GetVersion()
+{
+	return version;
 }
 
 void *GL::GetProcAddress(const char *proc)

@@ -4,47 +4,9 @@ OpenGL Window Toolkit
 What is it?
 -----------
 
-The OpenGL Windowing Toolkit is an attempt to drag OpenGL away from it's old fixed pipeline roots and drag it into the 21st century. The windowing toolkit is designed to ease development of graphics applications in OpenGL, and is intended as a complete replacement for the likes of GLFW, GLUT, GLEW and other libraries.
+The OpenGL Window Toolkit is an attempt to drag OpenGL away from it's old fixed pipeline roots and drag it into the 21st century. The windowing toolkit is designed to ease development of graphics applications in OpenGL, and is intended as a complete replacement for the likes of GLFW, GLUT, GLEW and other libraries.
 
-I want to make this OpenGL API as easy to use as the XNA API used for DirectX!
-
-Getting Started
----------------
-
-Here is an example of where I want to get with this API. A lofty goal ;)
-
-    #include "glwt.h"
-
-    bool Game::Setup(int argc, const char** argv)
-    {
-        //Check that we have a decent Open GL version
-        if (!GL::IsSupported(3,2))
-        {
-            Window::MessageBox("Unsupported version of OpenGL. Please upgrade your graphics drivers.");
-            return false;
-        }
-
-    	//Initialise an OpenGL context and open a window.
-    	Window::Open(800,600,false);
-
-    	//We now have an Open GL context!
-    	GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-        //We loaded sucessfully!
-        return true;
-    }
-
-    void Game::Update(float dt)
-    {
-        if (Input::KeyDown(Key::Escape))
-        {
-            //Closes the window, which causes Window::IsOpen() to return false.
-            Window::Close();
-        }
-
-        GL::Clear();
-        Window::SwapBuffers();
-    }
+It is meant to use the best available low level windowing APIs on each platform to give the best performance and compatability on every platform. No legacy APIs are used.
 
 Current Features
 ----------------
@@ -55,18 +17,43 @@ Current Features
 * Modern OpenGL 3.2+ Support
     * The old APIs no longer exist, making things much cleaner.
 * Open a Window in 1 line of code
-* Mac OSX support (OSX 10.7+)
-* No additional library dependencies (e.g. GLEW, etc)
+* Mac OSX support (OSX 10.7+ only since OpenGL 3.2 support is 10.7+ only)
+* No additional library dependencies (e.g. GLUT, GLEW, etc)
 
 Planned Features
 ----------------
 
 * Input API (Mouse Input, Keyboard Input)
 * Event API (Window Resize, Window Close, etc)
-* Extend Support to multiple platforms
-    * Mac OSX
+* Extend Support to additional platforms
     * Windows
     * Linux
+
+Getting Started
+---------------
+
+So long, BOILERPLATE CODE!
+
+    #include "glwt.h"
+
+    bool Game::Setup(int argc, const char** argv)
+    {
+        //Initialise an OpenGL 3.2 Core context and open a window (set to true for fullscreen)
+        if (!Window::Open(800,600,false))
+            return false;
+
+        //We now have an Open GL context!
+        GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+        //We loaded sucessfully! Woo!
+        return true;
+    }
+
+    void Game::Update(float dt)
+    {
+        //Clear the color and depth buffer
+        GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
 
 Status
 ------

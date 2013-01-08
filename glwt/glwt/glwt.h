@@ -23,6 +23,8 @@ public:
     static void Close();
     static int Width();
     static int Height();
+    
+    static void ShowMessageBox(const char* message);
 };
 
 struct Key
