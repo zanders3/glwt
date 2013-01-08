@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Alex Parker. All rights reserved.
 //
 
+#include "glwt.h"
 #import "AppDelegate.h"
 #import "GLView.h"
-#include "glwt.h"
 
 static AppDelegate* appDelegate = nil;
 

@@ -53,6 +53,9 @@ bool Window::Open(int width, int height, bool fullscreen, const char* windowTitl
     GLint swapInt = 1;
     [[fullScreenView openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
     
+    //Load Open GL functions
+    GL::Init();
+    
     //Add the OpenGL view to the window
     [window setContentView: fullScreenView];
     [window makeKeyAndOrderFront:[AppDelegate delegate]];

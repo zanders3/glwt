@@ -17,26 +17,33 @@ Here is an example of where I want to get with this API. A lofty goal ;)
 
     bool Game::Setup(int argc, const char** argv)
     {
+        //Check that we have a decent Open GL version
+        if (!GL::IsSupported(3,2))
+        {
+            Window::MessageBox("Unsupported version of OpenGL. Please upgrade your graphics drivers.");
+            return false;
+        }
+
     	//Initialise an OpenGL context and open a window.
     	Window::Open(800,600,false);
 
     	//We now have an Open GL context!
     	GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-        //We loaded sucessfully
+        //We loaded sucessfully!
         return true;
     }
 
     void Game::Update(float dt)
     {
-        GL::Clear();
-        Window::SwapBuffers();
-
-        if (Input::KeyPressed(Key::Escape))
+        if (Input::KeyDown(Key::Escape))
         {
             //Closes the window, which causes Window::IsOpen() to return false.
             Window::Close();
         }
+
+        GL::Clear();
+        Window::SwapBuffers();
     }
 
 Current Features

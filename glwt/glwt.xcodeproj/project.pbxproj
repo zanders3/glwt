@@ -9,14 +9,6 @@
 /* Begin PBXBuildFile section */
 		FA2B5BE3169A4B3500F143BD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2B5BE2169A4B3500F143BD /* Cocoa.framework */; };
 		FA2B5C03169A4CBB00F143BD /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2B5C02169A4CBB00F143BD /* OpenGL.framework */; };
-		FACF2764169B8223000D4C13 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF2753169B8223000D4C13 /* Camera.cpp */; };
-		FACF2765169B8223000D4C13 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF2755169B8223000D4C13 /* Material.cpp */; };
-		FACF2766169B8223000D4C13 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF2757169B8223000D4C13 /* Mesh.cpp */; };
-		FACF2767169B8223000D4C13 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF2759169B8223000D4C13 /* Model.cpp */; };
-		FACF2768169B8223000D4C13 /* RenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF275C169B8223000D4C13 /* RenderTexture.cpp */; };
-		FACF2769169B8223000D4C13 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF275E169B8223000D4C13 /* Shader.cpp */; };
-		FACF276A169B8223000D4C13 /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF2760169B8223000D4C13 /* stb_image.cpp */; };
-		FACF276B169B8223000D4C13 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF2762169B8223000D4C13 /* Texture.cpp */; };
 		FACF2770169B8A04000D4C13 /* GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF276C169B8A04000D4C13 /* GL.cpp */; };
 		FACF2771169B8A04000D4C13 /* gl3w_gen.py in Resources */ = {isa = PBXBuildFile; fileRef = FACF276E169B8A04000D4C13 /* gl3w_gen.py */; };
 		FAEB2151169B64A900B5EA1D /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2150169B64A900B5EA1D /* Game.cpp */; };
@@ -24,7 +16,7 @@
 		FAEB2168169B7F5300B5EA1D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB215A169B7F5300B5EA1D /* AppDelegate.mm */; };
 		FAEB216B169B7F5300B5EA1D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAEB215F169B7F5300B5EA1D /* MainMenu.xib */; };
 		FAEB216D169B7F5300B5EA1D /* GLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2163169B7F5300B5EA1D /* GLView.mm */; };
-		FAEB216F169B7F5300B5EA1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2166169B7F5300B5EA1D /* main.m */; };
+		FAEB216F169B7F5300B5EA1D /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2166169B7F5300B5EA1D /* main.mm */; };
 		FAEB2170169B7F5300B5EA1D /* Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2167169B7F5300B5EA1D /* Window.mm */; };
 		FAEB2172169B7FD400B5EA1D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAEB215D169B7F5300B5EA1D /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
@@ -36,23 +28,6 @@
 		FA2B5BE6169A4B3500F143BD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FA2B5BE7169A4B3500F143BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FA2B5C02169A4CBB00F143BD /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		FACF2753169B8223000D4C13 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = ../game/Camera.cpp; sourceTree = "<group>"; };
-		FACF2754169B8223000D4C13 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Camera.h; path = ../game/Camera.h; sourceTree = "<group>"; };
-		FACF2755169B8223000D4C13 /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Material.cpp; path = ../game/Material.cpp; sourceTree = "<group>"; };
-		FACF2756169B8223000D4C13 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Material.h; path = ../game/Material.h; sourceTree = "<group>"; };
-		FACF2757169B8223000D4C13 /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mesh.cpp; path = ../game/Mesh.cpp; sourceTree = "<group>"; };
-		FACF2758169B8223000D4C13 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesh.h; path = ../game/Mesh.h; sourceTree = "<group>"; };
-		FACF2759169B8223000D4C13 /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Model.cpp; path = ../game/Model.cpp; sourceTree = "<group>"; };
-		FACF275A169B8223000D4C13 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../game/Model.h; sourceTree = "<group>"; };
-		FACF275B169B8223000D4C13 /* RefPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RefPtr.h; path = ../game/RefPtr.h; sourceTree = "<group>"; };
-		FACF275C169B8223000D4C13 /* RenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderTexture.cpp; path = ../game/RenderTexture.cpp; sourceTree = "<group>"; };
-		FACF275D169B8223000D4C13 /* RenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenderTexture.h; path = ../game/RenderTexture.h; sourceTree = "<group>"; };
-		FACF275E169B8223000D4C13 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shader.cpp; path = ../game/Shader.cpp; sourceTree = "<group>"; };
-		FACF275F169B8223000D4C13 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = ../game/Shader.h; sourceTree = "<group>"; };
-		FACF2760169B8223000D4C13 /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stb_image.cpp; path = ../game/stb_image.cpp; sourceTree = "<group>"; };
-		FACF2761169B8223000D4C13 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image.h; path = ../game/stb_image.h; sourceTree = "<group>"; };
-		FACF2762169B8223000D4C13 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = ../game/Texture.cpp; sourceTree = "<group>"; };
-		FACF2763169B8223000D4C13 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture.h; path = ../game/Texture.h; sourceTree = "<group>"; };
 		FACF276C169B8A04000D4C13 /* GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL.cpp; sourceTree = "<group>"; };
 		FACF276D169B8A04000D4C13 /* GL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GL.h; sourceTree = "<group>"; };
 		FACF276E169B8A04000D4C13 /* gl3w_gen.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = gl3w_gen.py; sourceTree = "<group>"; };
@@ -68,7 +43,7 @@
 		FAEB2163169B7F5300B5EA1D /* GLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLView.mm; sourceTree = "<group>"; };
 		FAEB2164169B7F5300B5EA1D /* glwt-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "glwt-Info.plist"; sourceTree = "<group>"; };
 		FAEB2165169B7F5300B5EA1D /* glwt-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "glwt-Prefix.pch"; sourceTree = "<group>"; };
-		FAEB2166169B7F5300B5EA1D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FAEB2166169B7F5300B5EA1D /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		FAEB2167169B7F5300B5EA1D /* Window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Window.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,23 +116,6 @@
 		FAEB214F169B647D00B5EA1D /* game */ = {
 			isa = PBXGroup;
 			children = (
-				FACF2753169B8223000D4C13 /* Camera.cpp */,
-				FACF2754169B8223000D4C13 /* Camera.h */,
-				FACF2755169B8223000D4C13 /* Material.cpp */,
-				FACF2756169B8223000D4C13 /* Material.h */,
-				FACF2757169B8223000D4C13 /* Mesh.cpp */,
-				FACF2758169B8223000D4C13 /* Mesh.h */,
-				FACF2759169B8223000D4C13 /* Model.cpp */,
-				FACF275A169B8223000D4C13 /* Model.h */,
-				FACF275B169B8223000D4C13 /* RefPtr.h */,
-				FACF275C169B8223000D4C13 /* RenderTexture.cpp */,
-				FACF275D169B8223000D4C13 /* RenderTexture.h */,
-				FACF275E169B8223000D4C13 /* Shader.cpp */,
-				FACF275F169B8223000D4C13 /* Shader.h */,
-				FACF2760169B8223000D4C13 /* stb_image.cpp */,
-				FACF2761169B8223000D4C13 /* stb_image.h */,
-				FACF2762169B8223000D4C13 /* Texture.cpp */,
-				FACF2763169B8223000D4C13 /* Texture.h */,
 				FAEB2150169B64A900B5EA1D /* Game.cpp */,
 			);
 			name = game;
@@ -171,7 +129,7 @@
 				FAEB215A169B7F5300B5EA1D /* AppDelegate.mm */,
 				FAEB2162169B7F5300B5EA1D /* GLView.h */,
 				FAEB2163169B7F5300B5EA1D /* GLView.mm */,
-				FAEB2166169B7F5300B5EA1D /* main.m */,
+				FAEB2166169B7F5300B5EA1D /* main.mm */,
 				FAEB2167169B7F5300B5EA1D /* Window.mm */,
 			);
 			path = mac;
@@ -255,16 +213,8 @@
 				FAEB2151169B64A900B5EA1D /* Game.cpp in Sources */,
 				FAEB2168169B7F5300B5EA1D /* AppDelegate.mm in Sources */,
 				FAEB216D169B7F5300B5EA1D /* GLView.mm in Sources */,
-				FAEB216F169B7F5300B5EA1D /* main.m in Sources */,
+				FAEB216F169B7F5300B5EA1D /* main.mm in Sources */,
 				FAEB2170169B7F5300B5EA1D /* Window.mm in Sources */,
-				FACF2764169B8223000D4C13 /* Camera.cpp in Sources */,
-				FACF2765169B8223000D4C13 /* Material.cpp in Sources */,
-				FACF2766169B8223000D4C13 /* Mesh.cpp in Sources */,
-				FACF2767169B8223000D4C13 /* Model.cpp in Sources */,
-				FACF2768169B8223000D4C13 /* RenderTexture.cpp in Sources */,
-				FACF2769169B8223000D4C13 /* Shader.cpp in Sources */,
-				FACF276A169B8223000D4C13 /* stb_image.cpp in Sources */,
-				FACF276B169B8223000D4C13 /* Texture.cpp in Sources */,
 				FACF2770169B8A04000D4C13 /* GL.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

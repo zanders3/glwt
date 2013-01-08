@@ -4,27 +4,19 @@
  * OpenGL Window Toolkit Header File
  **/
 
+#include "GL.h"
+
 #ifndef glwt_glwt_h
 #define glwt_glwt_h
 
-#include "GL.h"
-
-class NoCopy
-{
-private:
-    NoCopy();
-    ~NoCopy();
-    NoCopy(const NoCopy& other){}
-};
-
-class Game : NoCopy
+class Game
 {
 public:
     static bool Setup(int argc, const char** argv);
     static void Draw(float deltaTime);
 };
 
-class Window : NoCopy
+class Window
 {
 public:
     static bool Open(int width, int height, bool fullscreen, const char* windowTitle);
@@ -41,7 +33,7 @@ struct Key
     };
 };
 
-class Input : NoCopy
+class Input
 {
 public:
     static bool KeyUp(Key::Enum key);

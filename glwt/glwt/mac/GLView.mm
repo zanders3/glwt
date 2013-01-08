@@ -12,6 +12,10 @@
 
 NSTimer* timer;
 
+extern "C" {
+extern void glSwapAPPLE(void);
+}
+
 @implementation GLView
 
 - (void)renderTimerCallback:(NSTimer*)theTimer

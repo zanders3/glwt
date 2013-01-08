@@ -2,6 +2,7 @@
 // Prefix header for all source files of the 'glwt' target in the 'glwt' project
 //
 
+#include "glwt.h"
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
 #endif
