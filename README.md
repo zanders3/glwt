@@ -59,7 +59,7 @@ Documentation
 ### Game ###
 This is the main entry point for the application. Your code goes here.
 
-    static bool Setup(int argc, const char*\* argv);
+    static bool Setup(int argc, const char** argv);
 
 > Replaces your main function (this is platform specific anyway). You should open a window here and initialize OpenGL objects, load textures, etc.
 > Returning false closes the application cleanly.
@@ -67,8 +67,6 @@ This is the main entry point for the application. Your code goes here.
     static void Draw(float deltaTime);
 
 > Called every frame with the time in seconds since the last frame.
-
---------------
 
 ### Window ###
 Handles the window and the creation of an OpenGL context.
@@ -87,8 +85,6 @@ Handles the window and the creation of an OpenGL context.
 
     static void ShowMessageBox(const char* message)
 > Displays a pop-up dialogue containing the message.
-
---------------
 
 ### GL ###
 The GL class provides access to all of the OpenGL core functions. This is based off the [gl3w library](https://github.com/skaslev/gl3w).
@@ -109,4 +105,3 @@ The GL class provides access to all of the OpenGL core functions. This is based 
 
 > Returns a structure representing the OpenGL version.
 
---------------
