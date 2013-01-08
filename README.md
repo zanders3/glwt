@@ -29,23 +29,10 @@ Planned Features
     * Windows
     * Linux
 
-Documentation
--------------
+Sample Code
+-----------
 
-### Game ###
-This is the main entry point for the application. Your code goes here.
-
-    static bool Setup(int argc, const char*\* argv);
-
-> Replaces your main function (this is platform specific anyway). You should open a window here and initialize OpenGL objects, load textures, etc.
-> Returning false closes the application cleanly.
-
-    static void Draw(float deltaTime);
-
-> Called every frame with the time in seconds since the last frame.
-
-***Sample Code***
-This will open an 800x600 window and clear the screen to black.
+This will open an 800x600 window and clear the screen to black every frame.
 
     bool Game::Setup(int argc, const char** argv)
     {
@@ -66,6 +53,23 @@ This will open an 800x600 window and clear the screen to black.
         GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
+Documentation
+-------------
+
+### Game ###
+This is the main entry point for the application. Your code goes here.
+
+    static bool Setup(int argc, const char*\* argv);
+
+> Replaces your main function (this is platform specific anyway). You should open a window here and initialize OpenGL objects, load textures, etc.
+> Returning false closes the application cleanly.
+
+    static void Draw(float deltaTime);
+
+> Called every frame with the time in seconds since the last frame.
+
+--------------
+
 ### Window ###
 Handles the window and the creation of an OpenGL context.
 
@@ -84,12 +88,14 @@ Handles the window and the creation of an OpenGL context.
     static void ShowMessageBox(const char* message)
 > Displays a pop-up dialogue containing the message.
 
+--------------
+
 ### GL ###
 The GL class provides access to all of the OpenGL core functions. This is based off the [gl3w library](https://github.com/skaslev/gl3w).
 
     static int Init();
 
-> Loads all of the OpenGL functions. This is called automatically by Window::Open(). (See [http://www.opengl.org/wiki/Load_OpenGL_Functions] for more info on why this happens).
+> Loads all of the OpenGL functions. This is called automatically by Window::Open(). See http://www.opengl.org/wiki/Load_OpenGL_Functions for more info on why this happens.
 
     static bool IsSupported(int major, int minor)
 
@@ -103,4 +109,4 @@ The GL class provides access to all of the OpenGL core functions. This is based 
 
 > Returns a structure representing the OpenGL version.
 
-
+--------------
