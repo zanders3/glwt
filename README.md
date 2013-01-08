@@ -55,6 +55,48 @@ So long, BOILERPLATE CODE!
         GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-Status
-------
-I've only just started this project so we'll see how it goes! I hope this will allow me to get more projects started up in OpenGL quicker than ever before, once I've finished dealing with all of this boilerplate.
+Documentation
+-------------
+
+### Game ###
+This is the main entry point for the application. Your code goes here.
+
+**static bool Setup(int argc, const char** argv);**
+
+Replaces your main function (this is platform specific anyway). You should open a window here and initialize OpenGL objects, load textures, etc.
+Returning false closes the application cleanly.
+
+**static void Draw(float deltaTime);**
+
+Called every frame with the time in seconds since the last frame.
+
+***Sample Code***
+
+    bool Game::Setup(int argc, const char** argv)
+    {
+        //Initialise an OpenGL 3.2 Core context and open a window (set to true for fullscreen)
+        if (!Window::Open(800,600,false))
+            return false;
+
+        //We now have an Open GL context!
+        GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+        //We loaded sucessfully! Woo!
+        return true;
+    }
+
+### Window ###
+
+
+
+class Window
+{
+public:
+    static bool Open(int width, int height, bool fullscreen, const char* windowTitle);
+    static void Close();
+    static int Width();
+    static int Height();
+    
+    static void ShowMessageBox(const char* message);
+};
+
