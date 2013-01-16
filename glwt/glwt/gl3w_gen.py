@@ -17,19 +17,36 @@ else:
     print 'Reusing glcorearb.h...'
 
 # Parse function names from glcorearb.h
+
+#FFFFFFFUUUUUUUUUUUUUUUUUUUU
+def convert_to_call(methodParams):
+	print 'Method params: ' + methodParams
+	output = []
+	for item in methodParams[1:-1].split(','):
+		item = item.strip()
+		parts = item.split(' ')
+		if parts.count > 1 and parts[0] != 'void':
+			output.append(parts[-1].replace('*',''))
+	print ','.join(output)
+	return ','.join(output)
+
+def parse_procedure(proc):
+    return { 'p': proc[0],
+             'p_s': proc[0][2:],
+             'p_t': 'PFN' + proc[0].upper() + 'PROC',
+             'p_m': proc[1][1:-1],
+             'p_r': proc[2],
+             'p_c': convert_to_call(proc[1][1:-1]),
+             'macro': 'EC' if 'void' in proc[2] else 'EC_RET'	}
+
 print 'Parsing glcorearb.h header...'
 procs = []
-p = re.compile(r'GLAPI.*APIENTRY\s+(\w+)')
+p = re.compile(r'GLAPI(.*)APIENTRY\s+(\w+)(.*$)')
 with open('glcorearb.h', 'r') as f:
     for line in f:
         m = p.match(line)
         if m:
-            procs.append(m.group(1))
-
-def proc_t(proc):
-    return { 'p': proc,
-             'p_s': proc[2:],
-             'p_t': 'PFN' + proc.upper() + 'PROC' }
+            procs.append(parse_procedure([m.group(2),m.group(3),m.group(1)]))
 
 # Generate gl3w.h
 print 'Generating GL.h...'
@@ -70,7 +87,7 @@ public:
 /* OpenGL functions */
 ''')
     for proc in procs:
-        f.write('	static %(p_t)s %(p_s)s;\n' % proc_t(proc))
+        f.write('	static%(p_r)s%(p_s)s%(p_m)s;\n' % proc)
     f.write('\n')
     f.write(r'''
 };
@@ -213,11 +230,79 @@ void *GL::GetProcAddress(const char *proc)
 
 ''')
     for proc in procs:
-        f.write('%(p_t)s GL::%(p_s)s;\n' % proc_t(proc))
+        f.write('%(p_t)s m%(p_s)s;\n' % proc)
     f.write(r'''
 static void load_procs(void)
 {
 ''')
     for proc in procs:
-        f.write('\tGL::%(p_s)s = (%(p_t)s) get_proc("%(p)s");\n' % proc_t(proc))
-    f.write('}\n')
+        f.write('\tm%(p_s)s = (%(p_t)s) get_proc("%(p)s");\n' % proc)
+    f.write(r'''
+}
+
+#define ERROR_CHECK
+#ifdef ERROR_CHECK
+#include <iostream>
+
+void ErrorCheck()
+{
+    GLenum error = mGetError();
+    if (error != GL_NO_ERROR)
+    {
+        const char* errorMessage;
+        switch (error)
+        {
+            case GL_INVALID_ENUM:
+                // An unacceptable value is specified for an enumerated argument. The offending command is ignored and has no other side effect than to set the error flag.
+                errorMessage = "GL_INVALID_ENUM";
+                break;
+               
+            case GL_INVALID_VALUE:
+                //A numeric argument is out of range. The offending command is ignored and has no other side effect than to set the error flag.
+                errorMessage = "GL_INVALID_VALUE";
+                break;
+                
+            case GL_INVALID_OPERATION:
+                //The specified operation is not allowed in the current state. The offending command is ignored and has no other side effect than to set the error flag.
+                errorMessage = "GL_INVALID_OPERATION";
+                break;
+                
+            case GL_INVALID_FRAMEBUFFER_OPERATION:
+                //The framebuffer object is not complete. The offending command is ignored and has no other side effect than to set the error flag.
+                errorMessage = "GL_INVALID_FRAMEBUFFER_OPERATION";
+                break;
+                
+            case GL_OUT_OF_MEMORY:
+                //There is not enough memory left to execute the command. The state of the GL is undefined, except for the state of the error flags, after this error is recorded.
+                errorMessage = "GL_OUT_OF_MEMORY";
+                break;
+                
+            case GL_STACK_UNDERFLOW:
+                //An attempt has been made to perform an operation that would cause an internal stack to underflow.
+                errorMessage = "GL_STACK_UNDERFLOW";
+                break;
+                
+            case GL_STACK_OVERFLOW:
+                //An attempt has been made to perform an operation that would cause an internal stack to overflow.
+                errorMessage = "GL_STACK_OVERFLOW";
+                break;
+        }
+        
+        std::cout << "OpenGL Error: " << errorMessage << std::endl;
+        exit(1);
+    }
+}
+
+#define EC(FUNCTION) { FUNCTION; ErrorCheck(); }
+#define EC_RET(FUNCTION) { auto ret = FUNCTION; ErrorCheck(); return ret; }
+
+#else
+
+#define EC(FUNCTION) { FUNCTION; }
+#define EC_RET(FUNCTION) { return FUNCTION; }
+#endif
+
+''')
+    for proc in procs:
+    	if proc['p_s'] != 'GetError':
+	    	f.write('%(p_r)sGL::%(p_s)s%(p_m)s %(macro)s(m%(p_s)s(%(p_c)s))\n' % proc)

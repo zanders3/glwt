@@ -44,7 +44,9 @@ extern void glSwapAPPLE(void);
 
 -(void)drawRect:(NSRect)dirtyRect
 {
-    Game::Draw(0.0f);
+    if (Window::Width() > 0)
+        Game::Draw(0.0f);
+    
     glSwapAPPLE();
 }
 
