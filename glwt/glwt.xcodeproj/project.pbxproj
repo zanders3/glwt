@@ -64,7 +64,6 @@
 		FA2B5BD3169A4B3500F143BD = {
 			isa = PBXGroup;
 			children = (
-				FAEB2156169B74EC00B5EA1D /* CoreVideo.framework */,
 				FAEB214F169B647D00B5EA1D /* game */,
 				FA2B5BE8169A4B3500F143BD /* glwt */,
 				FA2B5BE1169A4B3500F143BD /* Frameworks */,
@@ -83,6 +82,7 @@
 		FA2B5BE1169A4B3500F143BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAEB2156169B74EC00B5EA1D /* CoreVideo.framework */,
 				FA2B5C02169A4CBB00F143BD /* OpenGL.framework */,
 				FA2B5BE2169A4B3500F143BD /* Cocoa.framework */,
 				FA2B5BE4169A4B3500F143BD /* Other Frameworks */,

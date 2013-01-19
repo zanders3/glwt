@@ -18,7 +18,7 @@ extern void glSwapAPPLE(void);
 
 @implementation GLView
 
-- (void)renderTimerCallback:(NSTimer*)theTimer
+- (void)renderTimerCallback:(NSTimer*)timer
 {
     // lets the OS call drawRect for best window system synchronization
     [self display];
@@ -28,16 +28,14 @@ extern void glSwapAPPLE(void);
 {
     self = [super initWithFrame:frameRect pixelFormat:format];
     
-    timer = [[NSTimer alloc] initWithFireDate:[NSDate distantFuture]
-                                    interval:0.001 // must use with vbsynch on, or you waste lots of CPU!
-                                    target:self
-                                    selector:@selector(renderTimerCallback:)
-                                    userInfo:nil
-                                    repeats:YES];
+    timer = [NSTimer timerWithTimeInterval:0.001 // must use with vbsynch on, or you waste lots of CPU!
+                     target:self
+                     selector:@selector(renderTimerCallback:)
+                     userInfo:nil
+                     repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSModalPanelRunLoopMode];
-    [timer release];
     
     return self;
 }
@@ -46,6 +44,11 @@ extern void glSwapAPPLE(void);
 {
     if (Window::Width() > 0)
         Game::Draw(0.0f);
+    else
+    {
+        GL::ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        GL::Clear(GL_COLOR_BUFFER_BIT);
+    }
     
     glSwapAPPLE();
 }
