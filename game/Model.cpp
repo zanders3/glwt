@@ -1,119 +1,61 @@
-/*#include "Model.h"
-#include "Mesh.h"
+//
+//  ModelLoader.cpp
+//  glwt
+//
+//  Created by Alex Parker on 27/01/2013.
+//  Copyright (c) 2013 Alex Parker. All rights reserved.
+//
 
-Model::Model( MaterialPtr& material, MeshPtr& mesh ) :
-	m_material(material),
-	m_mesh(mesh),
-	m_world(),
-	m_worldDirty(true),
-	m_pos(),
-	m_scale(1.0f, 1.0f, 1.0f),
-	m_rot(),
-	m_children()
-{
-}
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+#include "Model.h"
+#include <vector>
+#include <iostream>
 
-Model::Model() :
-	m_material(),
-	m_mesh(),
-	m_world(),
-	m_worldDirty(true),
-	m_pos(),
-	m_scale(1.0f, 1.0f, 1.0f),
-	m_rot(),
-	m_children()
+using namespace std;
+
+Model::Model(Vertex* vertices, int numVerts, int* indices, int numInds)
 {
+    //Create the vertex buffer object, then set it as the current buffer, then copy the vertex data onto it.
+    GL::GenBuffers(1, &mVertexBuffer);
+    GL::BindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
+    GL::BufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*numVerts, vertices, GL_STATIC_DRAW);
+    
+    //Create the index buffer object, set it as the current index buffer, then copy index data to it.
+    GL::GenBuffers(1, &mIndexBuffer);
+    GL::BindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
+    GL::BufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*numInds, indices, GL_STATIC_DRAW);
+    
+    //Create the vertex layout
+    GL::GenVertexArrays(1, &mVertexLayout);
+    GL::BindVertexArray(mVertexLayout);
+    
+    //The vertex layout has 3 floats for position
+    GL::VertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(0));
+    GL::VertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(3));
+    GL::VertexAttribPointer(6, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(6));
+    GL::EnableVertexAttribArray(0);
 }
 
 Model::~Model()
 {
+    GL::DeleteBuffers(1, &mVertexBuffer);
+    GL::DeleteBuffers(1, &mIndexBuffer);
+    GL::DeleteVertexArrays(1, &mVertexLayout);
 }
 
-ModelPtr& Model::AddChild( ModelPtr child )
+void Model::Bind()
 {
-	m_children.push_back(child);
-	return m_children.back();
+    GL::BindVertexArray(mVertexLayout);
+    GL::BindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
+    GL::BindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
 }
 
-ModelPtr& Model::AddChild( MeshPtr child )
+Model* Model::LoadObj(const char *objFile)
 {
-	m_children.push_back(ModelPtr(new Model(m_material, child)));
-	return m_children.back();
+    vector<Vertex> vertices;
+    vector<int> indices;
+    
+    
+    
+    return new Model((Vertex*)vertices.data(), vertices.size(), (int*)indices.data(), (int)indices.size());
 }
-
-Model& Model::SetPosition( glm::vec3 pos )
-{
-	m_pos = pos;
-	m_worldDirty = true;
-
-	return *this;
-}
-
-Model& Model::Rotate( float angle, glm::vec3 axis )
-{
-	m_rot = glm::rotate(m_rot, angle, axis);
-	m_worldDirty = true;
-	return *this;
-}
-
-Model& Model::SetScale( float scale )
-{
-	m_scale.x = scale;
-	m_scale.y = scale;
-	m_scale.z = scale;
-	m_worldDirty = true;
-
-	return *this;
-}
-
-Model& Model::SetScale( float x, float y, float z )
-{
-	m_scale.x = x;
-	m_scale.y = y;
-	m_scale.z = z;
-	m_worldDirty = true;
-
-	return *this;
-}
-
-const glm::vec3& Model::GetPosition() const
-{
-	return m_pos;
-}
-
-void Model::Draw( glm::mat4& world, Material::Pass::Enum pass )
-{
-	if (m_worldDirty)
-	{
-		m_worldDirty = false;
-
-		m_world = glm::scale(glm::translate(glm::mat4(), m_pos) * m_rot, m_scale);
-	}
-
-	glm::mat4 localWorld = world * m_world;
-
-	if (m_mesh.valid() && m_material.valid() && m_material->Bind(pass, localWorld))
-	{
-		m_mesh->Draw();
-	}
-
-	for (std::vector<ModelPtr>::iterator iter = m_children.begin(); iter != m_children.end(); ++iter)
-	{
-		(*iter)->Draw(localWorld, pass);
-	}
-}
-
-Model& Model::SetForward( glm::vec3 fwd, glm::vec3 up )
-{
-    if(glm::all(glm::equal(fwd, up)))
-        m_rot = glm::mat4(1.0f);
-    else
-    {
-        glm::vec3 rotationAxis = glm::cross(up, fwd);
-        float angle = glm::degrees(glm::acos(glm::dot(fwd, up)));
-        m_rot = glm::rotate(angle, rotationAxis);
-        m_worldDirty = true;
-    }
-
-	return *this;
-}*/

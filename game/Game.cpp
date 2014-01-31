@@ -5,14 +5,16 @@
  **/
 
 #include "glwt.h"
+#include <math.h>
 #include <iostream>
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 const char* vertexShaderCode = "#version 150 \r\n\
 in vec3 inVertex;\r\n\
+uniform mat4 wvp;\
 void main()\r\n\
 {\r\n\
-    gl_Position = vec4(inVertex, 1.0);\r\n\
+    gl_Position = wvp * vec4(inVertex, 1.0);\r\n\
 }\r\n\
 ";
 
@@ -24,10 +26,35 @@ void main()\n\
 }\n\
 ";
 
-struct Vertex
+struct mat4
+{
+    float rows[16];
+};
+struct vec3
 {
     float x, y, z;
 };
+
+mat4 identity()
+{
+    return {{
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    }};
+}
+
+mat4 proj(float n, float f)
+{
+    return {{
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, f/(f-n), (-f*n)/(f-n),
+        0.0f, 0.0f, 1.0f, 0.0f
+    }};
+}
+
 GLuint vertexBuffer, indexBuffer, vertexLayout, vertexShader, fragmentShader, shaderProgram;
 
 bool Game::Setup(int argc, const char** argv)
@@ -36,11 +63,11 @@ bool Game::Setup(int argc, const char** argv)
     
     GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     
-    Vertex verts[] =
+    vec3 verts[] =
     {
-        { 0.0f, 0.75f, 0.0f },
-        { -0.5f, 0.25f, 0.0f },
-        { 0.5f, 0.25f, 0.0f }
+        { 0.0f, 3.00f, 4.0f },
+        { -0.5f, 0.25f, 4.0f },
+        { 0.5f, 0.25f, 4.0f }
     };
     unsigned short inds[] =
     {
@@ -62,7 +89,7 @@ bool Game::Setup(int argc, const char** argv)
     GL::BindVertexArray(vertexLayout);
     
     //The vertex layout has 3 floats for position
-    GL::VertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(0));
+    GL::VertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), BUFFER_OFFSET(0));
     GL::EnableVertexAttribArray(0);
     
     //Create the shader program
@@ -110,11 +137,26 @@ bool Game::Setup(int argc, const char** argv)
     return true;
 }
 
+float timeC = 0.0f;
+
 void Game::Draw(float deltaTime)
 {
     GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    GL::BindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     GL::BindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    vec3 verts[] =
+    {
+        { 0.0f, 3.00f, 3.0f + sinf(timeC) },
+        { -0.5f, 0.25f, 3.0f + sinf(timeC) },
+        { 0.5f, 0.25f, 3.0f + sinf(timeC) }
+    };
+    GL::BufferData(GL_ARRAY_BUFFER, sizeof(verts), &verts, GL_STATIC_DRAW);
+    
+    timeC += deltaTime;
+    GLuint wvpParam = GL::GetUniformLocation(shaderProgram, "wvp");
+    mat4 mvpMatrix = proj(0.01f, 5.0f);
+    GL::UniformMatrix4fv(wvpParam, 1, GL_TRUE, mvpMatrix.rows);
+    
+    GL::BindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     GL::DrawRangeElements(GL_TRIANGLES, 0, 3, 3, GL_UNSIGNED_SHORT, NULL);
 }

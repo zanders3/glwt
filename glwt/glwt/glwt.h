@@ -6,8 +6,8 @@
 
 #include "GL.h"
 
-#ifndef glwt_glwt_h
-#define glwt_glwt_h
+#ifndef __glwt__glwt_h
+#define __glwt__glwt_h
 
 class Game
 {

@@ -11,6 +11,7 @@
 		FA2B5C03169A4CBB00F143BD /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2B5C02169A4CBB00F143BD /* OpenGL.framework */; };
 		FACF2770169B8A04000D4C13 /* GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACF276C169B8A04000D4C13 /* GL.cpp */; };
 		FACF2771169B8A04000D4C13 /* gl3w_gen.py in Resources */ = {isa = PBXBuildFile; fileRef = FACF276E169B8A04000D4C13 /* gl3w_gen.py */; };
+		FAD7F1CC189C460800829A7D /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAD7F1CA189C460800829A7D /* Model.cpp */; };
 		FAEB2151169B64A900B5EA1D /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEB2150169B64A900B5EA1D /* Game.cpp */; };
 		FAEB2157169B74EC00B5EA1D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEB2156169B74EC00B5EA1D /* CoreVideo.framework */; };
 		FAEB2168169B7F5300B5EA1D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAEB215A169B7F5300B5EA1D /* AppDelegate.mm */; };
@@ -32,6 +33,8 @@
 		FACF276D169B8A04000D4C13 /* GL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GL.h; sourceTree = "<group>"; };
 		FACF276E169B8A04000D4C13 /* gl3w_gen.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = gl3w_gen.py; sourceTree = "<group>"; };
 		FACF276F169B8A04000D4C13 /* glcorearb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glcorearb.h; sourceTree = "<group>"; };
+		FAD7F1CA189C460800829A7D /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Model.cpp; path = ../game/Model.cpp; sourceTree = "<group>"; };
+		FAD7F1CB189C460800829A7D /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../game/Model.h; sourceTree = "<group>"; };
 		FAEB214D169B63E400B5EA1D /* glwt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glwt.h; sourceTree = "<group>"; };
 		FAEB2150169B64A900B5EA1D /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = ../game/Game.cpp; sourceTree = "<group>"; };
 		FAEB2156169B74EC00B5EA1D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -116,6 +119,8 @@
 		FAEB214F169B647D00B5EA1D /* game */ = {
 			isa = PBXGroup;
 			children = (
+				FAD7F1CA189C460800829A7D /* Model.cpp */,
+				FAD7F1CB189C460800829A7D /* Model.h */,
 				FAEB2150169B64A900B5EA1D /* Game.cpp */,
 			);
 			name = game;
@@ -214,6 +219,7 @@
 				FAEB2168169B7F5300B5EA1D /* AppDelegate.mm in Sources */,
 				FAEB216D169B7F5300B5EA1D /* GLView.mm in Sources */,
 				FAEB216F169B7F5300B5EA1D /* main.mm in Sources */,
+				FAD7F1CC189C460800829A7D /* Model.cpp in Sources */,
 				FAEB2170169B7F5300B5EA1D /* Window.mm in Sources */,
 				FACF2770169B8A04000D4C13 /* GL.cpp in Sources */,
 			);

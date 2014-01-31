@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
+#include <mach/mach_time.h>
 
 @interface GLView : NSOpenGLView<NSWindowDelegate>
+{
+    uint64_t lastFrame;
+    mach_timebase_info_data_t info;
+}
 @end

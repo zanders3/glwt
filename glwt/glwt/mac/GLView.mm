@@ -9,6 +9,7 @@
 #include "glwt.h"
 #import "GLView.h"
 #import "OpenGL/OpenGL.h"
+#include <mach/mach_time.h>
 
 NSTimer* timer;
 
@@ -28,7 +29,13 @@ extern void glSwapAPPLE(void);
 {
     self = [super initWithFrame:frameRect pixelFormat:format];
     
-    timer = [NSTimer timerWithTimeInterval:0.001 // must use with vbsynch on, or you waste lots of CPU!
+    //ensure vbsynch is on!
+    [[self openGLContext] setValues:(GLint[]){1} forParameter:NSOpenGLCPSwapInterval];
+    
+    lastFrame = mach_absolute_time();
+    mach_timebase_info(&info);
+    
+    timer = [NSTimer timerWithTimeInterval:0.001
                      target:self
                      selector:@selector(renderTimerCallback:)
                      userInfo:nil
@@ -36,14 +43,24 @@ extern void glSwapAPPLE(void);
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSModalPanelRunLoopMode];
+
     
     return self;
 }
 
 -(void)drawRect:(NSRect)dirtyRect
 {
+    uint64_t latestTime = mach_absolute_time();
+    uint64_t elapsed = latestTime - lastFrame;
+    lastFrame = latestTime;
+    
+    elapsed *= info.numer;
+    elapsed /= info.denom;
+    
+    float elapsedSeconds = (float)elapsed * 0.000000001f;
+    
     if (Window::Width() > 0)
-        Game::Draw(0.0f);
+        Game::Draw(elapsedSeconds);
     else
     {
         GL::ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
