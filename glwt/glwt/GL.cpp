@@ -1347,7 +1347,7 @@ static void load_procs(void)
 #ifdef ERROR_CHECK
 #include <iostream>
 
-void ErrorCheck()
+void ErrorCheck(const char* file, int line)
 {
     GLenum error = mGetError();
     if (error != GL_NO_ERROR)
@@ -1391,13 +1391,13 @@ void ErrorCheck()
                 break;
         }
         
-        std::cout << "OpenGL Error: " << errorMessage << std::endl;
-        exit(1);
+        std::cout << "OpenGL Error: " << errorMessage << " " << file << ":" << line << std::endl;
+        assert(false);
     }
 }
 
-#define EC(FUNCTION) { FUNCTION; ErrorCheck(); }
-#define EC_RET(FUNCTION) { auto ret = FUNCTION; ErrorCheck(); return ret; }
+#define EC(FUNCTION) { FUNCTION; ErrorCheck(__FILE__, __LINE__); }
+#define EC_RET(FUNCTION) { auto ret = FUNCTION; ErrorCheck(__FILE__, __LINE__); return ret; }
 
 #else
 

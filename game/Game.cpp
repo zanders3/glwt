@@ -7,6 +7,7 @@
 #include "glwt.h"
 #include <math.h>
 #include <iostream>
+#include "Model.h"
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 const char* vertexShaderCode = "#version 150 \r\n\
@@ -26,34 +27,134 @@ void main()\n\
 }\n\
 ";
 
-struct mat4
-{
-    float rows[16];
-};
 struct vec3
 {
     float x, y, z;
+    
+    vec3() : x(0.0f), y(0.0f), z(0.0f)
+    {
+    }
+    
+    vec3(float x, float y, float z) : x(x), y(y), z(z)
+    {
+    }
+    
+    inline vec3 operator *(float scalar) const
+    {
+        return vec3(
+                    x * scalar, y * scalar, z * scalar
+                    );
+    }
+    
+    inline vec3 operator +(const vec3& other) const
+    {
+        return vec3(
+                    x + other.x, y + other.y, z + other.z
+                    );
+    }
+    
+    inline vec3 operator -(const vec3& other) const
+    {
+        return vec3(
+                    x - other.x, y - other.y, z - other.z
+                    );
+    }
+    
+    inline float dot(const vec3& other) const
+    {
+        return x*other.x + y*other.y + z*other.z;
+    }
+    
+    inline float lengthSq() const
+    {
+        return dot(*this);
+    }
+    
+    inline float length() const
+    {
+        return sqrtf(lengthSq());
+    }
+    
+    void normalize()
+    {
+        float len = length();
+        x /= len;
+        y /= len;
+        z /= len;
+    }
+    
+    inline vec3 cross(const vec3& other) const
+    {
+        return vec3(
+                    y*other.z - z*other.y,
+                    z*other.x - x*other.z,
+                    x*other.y - y*other.x
+                    );
+    }
 };
 
-mat4 identity()
+struct mat4
 {
-    return {{
-        1.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
-    }};
-}
+    float rows[16];
+    
+    mat4 operator *(const mat4& other)
+    {
+        mat4 res;
+        for (int i = 0; i<16; i+=4)
+            for (int j = 0; j<4; j++)
+                res.rows[i+j] =
+                    other.rows[i]*rows[j] +
+                    other.rows[i+1]*rows[j+4] +
+                    other.rows[i+2]*rows[j+8] +
+                    other.rows[i+3]*rows[j+12];
+        
+        return res;
+    }
+    
+    static mat4 axisangle(const vec3& axis, float angle)
+    {
+        float c = cosf(angle), ic = 1.0f - c;
+        float s = sinf(angle);
+        return {{
+            c+ic*axis.x*axis.x,         ic*axis.x*axis.y-axis.z*s,  ic*axis.x*axis.z+axis.y*s, 0.0f,
+            ic*axis.x*axis.y+axis.z*s,  c+ic*axis.y*axis.y,         ic*axis.y*axis.z-axis.x*s, 0.0f,
+            ic*axis.x*axis.z-axis.y*s,  ic*axis.y*axis.z+axis.x*s,  c+ic*axis.z*axis.z,        0.0f,
+            0.0f,                       0.0f,                       0.0f,                      1.0f
+        }};
+    }
+    
+    static mat4 translate(float x, float y, float z)
+    {
+        return {{
+            1.0f, 0.0f, 0.0f, x,
+            0.0f, 1.0f, 0.0f, y,
+            0.0f, 0.0f, 1.0f, z,
+            0.0f, 0.0f, 0.0f, 1.0f
+        }};
+    }
+    
+    static mat4 identity()
+    {
+        return {{
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f
+        }};
+    }
+    
+    static mat4 proj(float n, float f)
+    {
+        return {{
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, f/(f-n), (-f*n)/(f-n),
+            0.0f, 0.0f, 1.0f, 0.0f
+        }};
+    }
+};
 
-mat4 proj(float n, float f)
-{
-    return {{
-        1.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, f/(f-n), (-f*n)/(f-n),
-        0.0f, 0.0f, 1.0f, 0.0f
-    }};
-}
+Model* model;
 
 GLuint vertexBuffer, indexBuffer, vertexLayout, vertexShader, fragmentShader, shaderProgram;
 
@@ -134,6 +235,8 @@ bool Game::Setup(int argc, const char** argv)
     GL::LinkProgram(shaderProgram);
     GL::UseProgram(shaderProgram);
     
+    model = Model::LoadObj("/Users/alex/Code/native/glwt/Villager.obj");
+    
     return true;
 }
 
@@ -143,20 +246,24 @@ void Game::Draw(float deltaTime)
 {
     GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    GL::BindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    vec3 verts[] =
+    //GL::BindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    /*vec3 verts[] =
     {
-        { 0.0f, 3.00f, 3.0f + sinf(timeC) },
-        { -0.5f, 0.25f, 3.0f + sinf(timeC) },
-        { 0.5f, 0.25f, 3.0f + sinf(timeC) }
-    };
-    GL::BufferData(GL_ARRAY_BUFFER, sizeof(verts), &verts, GL_STATIC_DRAW);
+        { 0.0f, 3.00f, 0.0f },
+        { -0.5f, 0.25f, 0.0f },
+        { 0.5f, 0.25f, 0.0f }
+    };*/
+    //GL::BufferData(GL_ARRAY_BUFFER, sizeof(verts), &verts, GL_STATIC_DRAW);
     
     timeC += deltaTime;
     GLuint wvpParam = GL::GetUniformLocation(shaderProgram, "wvp");
-    mat4 mvpMatrix = proj(0.01f, 5.0f);
+    mat4 mvpMatrix = mat4::axisangle(vec3(0.0f, 1.0f, 0.0f), timeC) * mat4::translate(0.0f, 0.0f, 5.0f) * mat4::proj(0.01f, 15.0f);
     GL::UniformMatrix4fv(wvpParam, 1, GL_TRUE, mvpMatrix.rows);
     
-    GL::BindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-    GL::DrawRangeElements(GL_TRIANGLES, 0, 3, 3, GL_UNSIGNED_SHORT, NULL);
+    //GL::BindVertexArray(vertexLayout);
+    
+    //GL::BindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    //GL::DrawRangeElements(GL_TRIANGLES, 0, 3, 3, GL_UNSIGNED_SHORT, NULL);
+    
+    model->Draw();
 }

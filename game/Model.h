@@ -22,11 +22,12 @@ public:
     Model(Vertex* vertices, int numVerts, int* indices, int numInds);
     ~Model();
     
-    void Bind();
+    void Draw();
     
     static Model* LoadObj(const char* objFile);
 private:
     GLuint mVertexBuffer, mIndexBuffer, mVertexLayout;
+    int mNumVerts, mNumInds;
 };
 
 #endif /* defined(__glwt__ModelLoader__) */

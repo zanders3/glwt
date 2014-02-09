@@ -10,10 +10,13 @@
 #include "Model.h"
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
-Model::Model(Vertex* vertices, int numVerts, int* indices, int numInds)
+Model::Model(Vertex* vertices, int numVerts, int* indices, int numInds) : mNumVerts(numVerts), mNumInds(numInds)
 {
     //Create the vertex buffer object, then set it as the current buffer, then copy the vertex data onto it.
     GL::GenBuffers(1, &mVertexBuffer);
@@ -43,11 +46,13 @@ Model::~Model()
     GL::DeleteVertexArrays(1, &mVertexLayout);
 }
 
-void Model::Bind()
+void Model::Draw()
 {
     GL::BindVertexArray(mVertexLayout);
     GL::BindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
     GL::BindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
+    
+    GL::DrawRangeElements(GL_TRIANGLES, 0, mNumVerts, mNumVerts, GL_UNSIGNED_SHORT, NULL);
 }
 
 Model* Model::LoadObj(const char *objFile)
@@ -55,7 +60,72 @@ Model* Model::LoadObj(const char *objFile)
     vector<Vertex> vertices;
     vector<int> indices;
     
+    Model* model = NULL;
     
+    string line;
+    ifstream file(objFile);
+    if (file.is_open())
+    {
+        while (getline(file, line, '\n'))
+        {
+            cout << line << endl;
+            switch (line[0])
+            {
+                case 'v':
+                {
+                    istringstream liness(line);
+                    getline(liness, line, ' ');
+                    
+                    string x, y, z;
+                    getline(liness, x, ' ');
+                    getline(liness, y, ' ');
+                    getline(liness, z, ' ');
+                    vertices.push_back({
+                        (float)atof(x.c_str()),
+                        (float)atof(y.c_str()),
+                        (float)atof(z.c_str()),
+                        0.0f,
+                        0.0f,
+                        0.0f,
+                        0.0f,
+                        0.0f
+                    });
+                }
+                break;
+                case 'f':
+                {
+                    istringstream liness(line);
+                    getline(liness, line, ' ');
+                    
+                    int inds[4];
+                    for (int i = 0; i<4; i++)
+                    {
+                        string indBits;
+                        getline(liness, indBits, ' ');
+                        istringstream iss(indBits);
+                        string bit;
+                        while (getline(iss, bit, '/'))
+                        {
+                            inds[i] = atoi(bit.c_str());
+                            break;
+                        }
+                    }
+                    
+                    indices.push_back(inds[0]);
+                    indices.push_back(inds[1]);
+                    indices.push_back(inds[2]);
+                    
+                    /*indices.push_back(inds[0]);
+                    indices.push_back(inds[2]);
+                    indices.push_back(inds[3]);*/
+                }
+                break;
+            }
+        }
+        
+        model = new Model((Vertex*)vertices.data(), (int)vertices.size(), (int*)indices.data(), (int)indices.size());
+    }
+    file.close();
     
-    return new Model((Vertex*)vertices.data(), vertices.size(), (int*)indices.data(), (int)indices.size());
+    return model;
 }
