@@ -14,6 +14,8 @@
     <ClCompile Include="..\game\Game.cpp" />
     <ClCompile Include="..\game\Model.cpp" />
     <ClCompile Include="glwt\GL.cpp" />
+    <ClCompile Include="windows\main.cpp" />
+    <ClCompile Include="windows\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\game\Model.h" />
