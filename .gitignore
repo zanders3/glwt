@@ -12,3 +12,8 @@
 *.la
 *.a
 glwt/build
+glwt/Debug/
+*.opensdf
+*.sdf
+*.filters
+*.ipch

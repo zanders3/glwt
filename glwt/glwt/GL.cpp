@@ -4,6 +4,9 @@
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
+#include <assert.h>
+#undef near
+#undef far
 
 static HMODULE libgl;
 
@@ -89,8 +92,10 @@ Version version;
 
 static int parse_version(void)
 {
+#ifndef WIN32
 	if (!GL::GetIntegerv)
 		return -1;
+#endif
 
 	GL::GetIntegerv(GL_MAJOR_VERSION, &version.major);
 	GL::GetIntegerv(GL_MINOR_VERSION, &version.minor);
@@ -1503,7 +1508,7 @@ void ErrorCheck(const char* file, int line)
  void GL::BufferData(GLenum target, GLsizeiptr size, const GLvoid *data, GLenum usage) EC(mBufferData(target,size,data,usage))
  void GL::BufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, const GLvoid *data) EC(mBufferSubData(target,offset,size,data))
  void GL::GetBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid *data) EC(mGetBufferSubData(target,offset,size,data))
- GLvoid* GL::MapBuffer(GLenum target, GLenum access) EC(mMapBuffer(target,access))
+ GLvoid* GL::MapBuffer(GLenum target, GLenum access) EC_RET(mMapBuffer(target,access))
  GLboolean GL::UnmapBuffer(GLenum target) EC_RET(mUnmapBuffer(target))
  void GL::GetBufferParameteriv(GLenum target, GLenum pname, GLint *params) EC(mGetBufferParameteriv(target,pname,params))
  void GL::GetBufferPointerv(GLenum target, GLenum pname, GLvoid* *params) EC(mGetBufferPointerv(target,pname,params))
@@ -1697,7 +1702,7 @@ void ErrorCheck(const char* file, int line)
  void GL::BlitFramebuffer(GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter) EC(mBlitFramebuffer(srcX0,srcY0,srcX1,srcY1,dstX0,dstY0,dstX1,dstY1,mask,filter))
  void GL::RenderbufferStorageMultisample(GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height) EC(mRenderbufferStorageMultisample(target,samples,internalformat,width,height))
  void GL::FramebufferTextureLayer(GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer) EC(mFramebufferTextureLayer(target,attachment,texture,level,layer))
- GLvoid* GL::MapBufferRange(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access) EC(mMapBufferRange(target,offset,length,access))
+ GLvoid* GL::MapBufferRange(GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access) EC_RET(mMapBufferRange(target,offset,length,access))
  void GL::FlushMappedBufferRange(GLenum target, GLintptr offset, GLsizeiptr length) EC(mFlushMappedBufferRange(target,offset,length))
  void GL::BindVertexArray(GLuint array) EC(mBindVertexArray(array))
  void GL::DeleteVertexArrays(GLsizei n, const GLuint *arrays) EC(mDeleteVertexArrays(n,arrays))

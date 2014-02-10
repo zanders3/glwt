@@ -13,7 +13,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "Math.h"
+#include "GLMath.h"
 #include <assert.h>
 
 using namespace std;
@@ -84,16 +84,17 @@ Model* Model::LoadObj(const char *objFile)
                 getline(liness, x, ' ');
                 getline(liness, y, ' ');
                 getline(liness, z, ' ');
-                vertices.push_back({
-                    (float)atof(x.c_str()),
-                    (float)atof(y.c_str()),
-                    (float)atof(z.c_str()),
-                    0.0f,
-                    1.0f,
-                    0.0f,
-                    1.0f,
-                    1.0f
-                });
+				Vertex vert = {
+					(float)atof(x.c_str()),
+					(float)atof(y.c_str()),
+					(float)atof(z.c_str()),
+					0.0f,
+					1.0f,
+					0.0f,
+					1.0f,
+					1.0f
+				};
+                vertices.push_back(vert);
             }
             else if (line == "vt")
             {
@@ -101,10 +102,10 @@ Model* Model::LoadObj(const char *objFile)
                 getline(liness, u, ' ');
                 getline(liness, v, ' ');
                 
-                texcoords.push_back({
-                    (float)atof(u.c_str()),
-                    (float)atof(v.c_str())
-                });
+                texcoords.push_back(vec2(
+					(float)atof(u.c_str()),
+					(float)atof(v.c_str())
+				));
             }
             else if (line == "vn")
             {

@@ -11,6 +11,10 @@
 
 #include <math.h>
 
+#ifdef WIN32
+#define M_PI 3.14159265f
+#endif
+
 inline float rad2deg(float radians)
 {
     return radians * (180.0f/M_PI);
@@ -122,32 +126,35 @@ struct mat4
     {
         float c = cosf(angle), ic = 1.0f - c;
         float s = sinf(angle);
-        return {{
+        mat4 mat = {{
             c+ic*axis.x*axis.x,         ic*axis.x*axis.y-axis.z*s,  ic*axis.x*axis.z+axis.y*s, 0.0f,
             ic*axis.x*axis.y+axis.z*s,  c+ic*axis.y*axis.y,         ic*axis.y*axis.z-axis.x*s, 0.0f,
             ic*axis.x*axis.z-axis.y*s,  ic*axis.y*axis.z+axis.x*s,  c+ic*axis.z*axis.z,        0.0f,
             0.0f,                       0.0f,                       0.0f,                      1.0f
         }};
+		return mat;
     }
     
     static mat4 translate(float x, float y, float z)
     {
-        return {{
+        mat4 mat = {{
             1.0f, 0.0f, 0.0f, x,
             0.0f, 1.0f, 0.0f, y,
             0.0f, 0.0f, 1.0f, z,
             0.0f, 0.0f, 0.0f, 1.0f
         }};
+		return mat;
     }
     
     static mat4 identity()
     {
-        return {{
+        mat4 mat = {{
             1.0f, 0.0f, 0.0f, 0.0f,
             0.0f, 1.0f, 0.0f, 0.0f,
             0.0f, 0.0f, 1.0f, 0.0f,
             0.0f, 0.0f, 0.0f, 1.0f
         }};
+		return mat;
     }
     
     static mat4 proj(float fov, float aspect, float n, float f)
@@ -155,12 +162,13 @@ struct mat4
         float yScale = 1.0f/tanf(fov*0.5f);
         float xScale = yScale / aspect;
         
-        return {{
+        mat4 mat = {{
             xScale, 0.0f,   0.0f, 0.0f,
             0.0f,   yScale, 0.0f, 0.0f,
             0.0f,   0.0f,   f/(f-n), (-f*n)/(f-n),
             0.0f,   0.0f,   1.0f, 0.0f
         }};
+		return mat;
     }
 };
 
