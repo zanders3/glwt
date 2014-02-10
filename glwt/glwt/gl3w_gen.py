@@ -17,8 +17,6 @@ else:
     print 'Reusing glcorearb.h...'
 
 # Parse function names from glcorearb.h
-
-#FFFFFFFUUUUUUUUUUUUUUUUUUUU
 def convert_to_call(methodParams):
 	print 'Method params: ' + methodParams
 	output = []

@@ -13,6 +13,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "Math.h"
+#include <assert.h>
 
 using namespace std;
 
@@ -33,10 +35,13 @@ Model::Model(Vertex* vertices, int numVerts, int* indices, int numInds) : mNumVe
     GL::BindVertexArray(mVertexLayout);
     
     //The vertex layout has 3 floats for position
-    GL::VertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(0));
-    GL::VertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(3));
-    GL::VertexAttribPointer(6, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(6));
+    //GL::EnableVertexAttribArray(0);
     GL::EnableVertexAttribArray(0);
+    GL::VertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(0));
+    GL::EnableVertexAttribArray(1);
+    GL::VertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(12));
+    GL::EnableVertexAttribArray(2);
+    GL::VertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), BUFFER_OFFSET(24));
 }
 
 Model::~Model()
@@ -52,12 +57,14 @@ void Model::Draw()
     GL::BindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
     GL::BindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
     
-    GL::DrawRangeElements(GL_TRIANGLES, 0, mNumVerts, mNumVerts, GL_UNSIGNED_SHORT, NULL);
+    GL::DrawElements(GL_TRIANGLES, mNumInds, GL_UNSIGNED_INT, NULL);
 }
 
 Model* Model::LoadObj(const char *objFile)
 {
     vector<Vertex> vertices;
+    vector<vec2> texcoords;
+    vector<vec3> normals;
     vector<int> indices;
     
     Model* model = NULL;
@@ -68,58 +75,104 @@ Model* Model::LoadObj(const char *objFile)
     {
         while (getline(file, line, '\n'))
         {
-            cout << line << endl;
-            switch (line[0])
+            istringstream liness(line);
+            getline(liness, line, ' ');
+
+            if (line == "v")
             {
-                case 'v':
+                string x, y, z;
+                getline(liness, x, ' ');
+                getline(liness, y, ' ');
+                getline(liness, z, ' ');
+                vertices.push_back({
+                    (float)atof(x.c_str()),
+                    (float)atof(y.c_str()),
+                    (float)atof(z.c_str()),
+                    0.0f,
+                    1.0f,
+                    0.0f,
+                    1.0f,
+                    1.0f
+                });
+            }
+            else if (line == "vt")
+            {
+                string u, v;
+                getline(liness, u, ' ');
+                getline(liness, v, ' ');
+                
+                texcoords.push_back({
+                    (float)atof(u.c_str()),
+                    (float)atof(v.c_str())
+                });
+            }
+            else if (line == "vn")
+            {
+                string x, y, z;
+                getline(liness, x, ' ');
+                getline(liness, y, ' ');
+                getline(liness, z, ' ');
+                normals.push_back(vec3(
+                    (float)atof(x.c_str()),
+                    (float)atof(y.c_str()),
+                    (float)atof(z.c_str())
+                ));
+            }
+            else if (line == "f")
+            {
+                int inds[4];
+                for (int i = 0; i<4; i++)
                 {
-                    istringstream liness(line);
-                    getline(liness, line, ' ');
+                    string indBits;
+                    getline(liness, indBits, ' ');
+                    istringstream iss(indBits);
+                    string bit;
                     
-                    string x, y, z;
-                    getline(liness, x, ' ');
-                    getline(liness, y, ' ');
-                    getline(liness, z, ' ');
-                    vertices.push_back({
-                        (float)atof(x.c_str()),
-                        (float)atof(y.c_str()),
-                        (float)atof(z.c_str()),
-                        0.0f,
-                        0.0f,
-                        0.0f,
-                        0.0f,
-                        0.0f
-                    });
-                }
-                break;
-                case 'f':
-                {
-                    istringstream liness(line);
-                    getline(liness, line, ' ');
-                    
-                    int inds[4];
-                    for (int i = 0; i<4; i++)
+                    //Read Position
+                    if (getline(iss, bit, '/'))
                     {
-                        string indBits;
-                        getline(liness, indBits, ' ');
-                        istringstream iss(indBits);
-                        string bit;
-                        while (getline(iss, bit, '/'))
-                        {
-                            inds[i] = atoi(bit.c_str());
-                            break;
-                        }
+                        inds[i] = atoi(bit.c_str()) - 1;//indices are counted from 1 for some reason
+                    }
+                    //Failing to read at this point means
+                    //this is a tri, not a quad.
+                    else
+                    {
+                        assert(i == 3);//we should have failed to read the 4th position
+                        inds[i] = -1;
+                        
+                        continue;
                     }
                     
-                    indices.push_back(inds[0]);
-                    indices.push_back(inds[1]);
-                    indices.push_back(inds[2]);
+                    //Read Tex Coords
+                    if (getline(iss, bit, '/'))
+                    {
+                        int texInd = atoi(bit.c_str()) - 1;
+                        vertices[inds[i]].tx = texcoords[texInd].x;
+                        vertices[inds[i]].ty = texcoords[texInd].y;
+                    }
+                    else continue;
                     
-                    /*indices.push_back(inds[0]);
-                    indices.push_back(inds[2]);
-                    indices.push_back(inds[3]);*/
+                    //Read Normal
+                    if (getline(iss, bit, '/'))
+                    {
+                        int normInd = atoi(bit.c_str());
+                        vec3 normal = normals[normInd];
+                        vertices[inds[i]].nx = normal.x;
+                        vertices[inds[i]].ny = normal.y;
+                        vertices[inds[i]].nz = normal.z;
+                    }
                 }
-                break;
+                
+                indices.push_back(inds[0]);
+                indices.push_back(inds[1]);
+                indices.push_back(inds[2]);
+                
+                if (inds[3] != -1)
+                {
+                    indices.push_back(inds[0]);
+                    indices.push_back(inds[2]);
+                    indices.push_back(inds[3]);
+                }
             }
         }
         

@@ -35,6 +35,7 @@
 		FACF276F169B8A04000D4C13 /* glcorearb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glcorearb.h; sourceTree = "<group>"; };
 		FAD7F1CA189C460800829A7D /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Model.cpp; path = ../game/Model.cpp; sourceTree = "<group>"; };
 		FAD7F1CB189C460800829A7D /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../game/Model.h; sourceTree = "<group>"; };
+		FADB337218A7AF6D00C207EB /* Math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		FAEB214D169B63E400B5EA1D /* glwt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glwt.h; sourceTree = "<group>"; };
 		FAEB2150169B64A900B5EA1D /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = ../game/Game.cpp; sourceTree = "<group>"; };
 		FAEB2156169B74EC00B5EA1D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -106,6 +107,7 @@
 		FA2B5BE8169A4B3500F143BD /* glwt */ = {
 			isa = PBXGroup;
 			children = (
+				FADB337218A7AF6D00C207EB /* Math.h */,
 				FACF276C169B8A04000D4C13 /* GL.cpp */,
 				FACF276D169B8A04000D4C13 /* GL.h */,
 				FACF276E169B8A04000D4C13 /* gl3w_gen.py */,
