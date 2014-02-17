@@ -14,6 +14,9 @@ class Game
 public:
     static bool Setup(int argc, const char** argv);
     static void Draw(float deltaTime);
+	static void Update(float deltaTime);
+
+	static void Resize(int width, int height);
 };
 
 class Window

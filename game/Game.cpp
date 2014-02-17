@@ -38,9 +38,9 @@ GLuint vertexBuffer, indexBuffer, vertexLayout, vertexShader, fragmentShader, sh
 
 bool Game::Setup(int argc, const char** argv)
 {
-    if (!Window::Open(800, 600, false, "H e l l o  World!"))
+    if (!Window::Open(800, 600, false, "Hello  World!"))
 		return false;
-    
+
     GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     
     model = Model::LoadObj("C:\\Users\\Alex\\Desktop\\villager.obj");
@@ -97,15 +97,26 @@ bool Game::Setup(int argc, const char** argv)
     return true;
 }
 
+void Game::Resize(int width, int height)
+{
+	GL::Viewport(0, 0, width, height);
+}
+
 float timeC = 0.0f;
+
+void Game::Update(float deltaTime)
+{
+	timeC += deltaTime;
+}
 
 void Game::Draw(float deltaTime)
 {
     GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    timeC += deltaTime;
+	float w = (float)Window::Width();
+	float h = (float)Window::Height();
     GLuint wvpParam = GL::GetUniformLocation(shaderProgram, "wvp");
-    mat4 mvpMatrix = mat4::axisangle(vec3(0.0f, 1.0f, 0.0f), timeC) * mat4::translate(0.0f, -2.0f, 8.0f) * mat4::proj(deg2rad(30.0f), 800.0f/600.0f, 0.01f, 15.0f);
+    mat4 mvpMatrix = mat4::axisangle(vec3(0.0f, 1.0f, 0.0f), timeC) * mat4::translate(0.0f, -2.0f, 8.0f) * mat4::proj(deg2rad(30.0f), w/h, 0.01f, 15.0f);
     GL::UniformMatrix4fv(wvpParam, 1, GL_TRUE, mvpMatrix.rows);
     
 	if (model)

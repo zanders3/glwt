@@ -5,7 +5,13 @@
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 HCURSOR gPointerCursor;
 HINSTANCE gHInstance;
+HWND gHwnd;
 const char* gWindowTitle = "GLWT";
+int gWindowWidth = 0, gWindowHeight = 0;
+bool gRunning = true;
+HGLRC openGLContext;
+HDC windowHandleDeviceContext;
+LONGLONG gLastTime;
 
 #pragma comment (lib, "opengl32.lib")
 
@@ -17,10 +23,37 @@ int __stdcall WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstanc
 	if (!Game::Setup(1, &argv))
 		return 1;
 
+	LARGE_INTEGER currentTime;
 	MSG msg = {0};
+	QueryPerformanceCounter(&currentTime);
+	gLastTime = currentTime.QuadPart;
 
-	while( GetMessage( &msg, NULL, 0, 0 ) > 0 )
-		DispatchMessage( &msg );
+	while (gRunning)
+	{
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+			DispatchMessage(&msg);
+
+		if (gRunning)
+		{
+			//Query the elapsed frame time
+			QueryPerformanceCounter(&currentTime);
+			float dt = (currentTime.QuadPart - gLastTime) / 1000000.0f;
+			gLastTime = currentTime.QuadPart;
+
+			//Begin painting
+			PAINTSTRUCT ps;
+			BeginPaint(gHwnd, &ps);
+
+			//Update then draw the game
+			Game::Update(dt);
+			Game::Draw(dt);
+
+			//Swap out buffers and finish painting
+			SwapBuffers(windowHandleDeviceContext);
+
+			EndPaint(gHwnd, &ps);
+		}
+	}
 
 	return 0;
 }
@@ -28,6 +61,8 @@ int __stdcall WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstanc
 bool Window::Open(int width, int height, bool fullscreen, const char* windowTitle)
 {
 	gWindowTitle = windowTitle;
+	gWindowWidth = width;
+	gWindowHeight = height;
 	gPointerCursor = LoadCursor(NULL, IDC_ARROW);
 
 	WNDCLASS wc = {0};
@@ -53,8 +88,15 @@ void Window::ShowMessageBox(const char* message)
 	MessageBoxA(0,message, gWindowTitle,0);
 }
 
-HGLRC openGLContext;
-HDC windowHandleDeviceContext;
+int Window::Width()
+{
+	return gWindowWidth;
+}
+
+int Window::Height()
+{
+	return gWindowHeight;
+}
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -62,6 +104,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:
 		{
+			gHwnd = hWnd;
+
 			PIXELFORMATDESCRIPTOR pfd =
 			{
 				sizeof(PIXELFORMATDESCRIPTOR),
@@ -95,6 +139,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 
+	case WM_SIZE:
+		{
+			RECT winSize;
+			GetWindowRect(hWnd, &winSize);
+			gWindowWidth = (int)(winSize.right - winSize.left);
+			gWindowHeight = (int)(winSize.bottom - winSize.top);
+			Game::Resize(gWindowWidth, gWindowHeight);
+		}
+		break;
+
 	case WM_MOUSEMOVE:
 		{
 			SetCursor(gPointerCursor);
@@ -102,19 +156,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_PAINT:
-		PAINTSTRUCT ps;
-		BeginPaint(hWnd, &ps);
-
-		Game::Draw(0.1f);
-
-		SwapBuffers(windowHandleDeviceContext);
-
-		EndPaint(hWnd, &ps);
+		
 		break;
 
 	case WM_CLOSE:
 		wglDeleteContext(openGLContext);
-		PostQuitMessage(0);
+		gRunning = false;
 		break;
 
 	default:
