@@ -7,7 +7,7 @@
 #include "glwt.h"
 #include <iostream>
 #include "Model.h"
-#include "GLMath.h"
+#include "Maths.h"
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 const char* vertexShaderCode = "#version 150 \r\n\

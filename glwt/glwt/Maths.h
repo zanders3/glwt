@@ -15,16 +15,19 @@
 #define M_PI 3.14159265f
 #endif
 
+//converts radians to degrees
 inline float rad2deg(float radians)
 {
     return radians * (180.0f/M_PI);
 }
 
+//converts degrees to radians
 inline float deg2rad(float deg)
 {
     return (deg * M_PI) / 180.0f;
 }
 
+//represents a 2D vector
 struct vec2
 {
     vec2() : x(0.0f), y(0.0f)
@@ -38,6 +41,7 @@ struct vec2
     float x, y;
 };
 
+//represents a 3D vector
 struct vec3
 {
     float x, y, z;
@@ -50,6 +54,7 @@ struct vec3
     {
     }
     
+	//multiplies the vector by a scalar, returning the result.
     inline vec3 operator *(float scalar) const
     {
         return vec3(
@@ -57,6 +62,7 @@ struct vec3
                     );
     }
     
+	//adds two vectors together, returning the result.
     inline vec3 operator +(const vec3& other) const
     {
         return vec3(
@@ -64,6 +70,7 @@ struct vec3
                     );
     }
     
+	//subtracts two vectors, returning the result.
     inline vec3 operator -(const vec3& other) const
     {
         return vec3(
@@ -71,21 +78,25 @@ struct vec3
                     );
     }
     
+	//calculate the dot product with the other vector, returning the result.
     inline float dot(const vec3& other) const
     {
         return x*other.x + y*other.y + z*other.z;
     }
     
+	//calculates the squared length of the current vector.
     inline float lengthSq() const
     {
         return dot(*this);
     }
     
+	//calculates the length of the vector.
     inline float length() const
     {
         return sqrtf(lengthSq());
     }
     
+	//normalizes the current vector.
     void normalize()
     {
         float len = length();
@@ -94,6 +105,7 @@ struct vec3
         z /= len;
     }
     
+	//calculates the cross product with the other vector, returning the result.
     inline vec3 cross(const vec3& other) const
     {
         return vec3(
@@ -104,11 +116,13 @@ struct vec3
     }
 };
 
+//represents a 4x4 matrix
 struct mat4
 {
     float rows[16];
     
-    mat4 operator *(const mat4& other)
+	//performs a matrix multiplication and returns the result.
+    mat4 operator *(const mat4& other) const
     {
         mat4 res;
         for (int i = 0; i<16; i+=4)
@@ -122,6 +136,7 @@ struct mat4
         return res;
     }
     
+	//produces a axis angle matrix. This will produce a rotation in radians about the normalized axis.
     static mat4 axisangle(const vec3& axis, float angle)
     {
         float c = cosf(angle), ic = 1.0f - c;
@@ -135,6 +150,7 @@ struct mat4
 		return mat;
     }
     
+	//produces a translation matrix
     static mat4 translate(float x, float y, float z)
     {
         mat4 mat = {{
@@ -146,6 +162,7 @@ struct mat4
 		return mat;
     }
     
+	//returns the identity matrix
     static mat4 identity()
     {
         mat4 mat = {{
@@ -157,6 +174,8 @@ struct mat4
 		return mat;
     }
     
+	//calculates a projection matrix from the field of view in radians,
+	//the aspect ratio, the near culling plane and far culling plane.
     static mat4 proj(float fov, float aspect, float n, float f)
     {
         float yScale = 1.0f/tanf(fov*0.5f);

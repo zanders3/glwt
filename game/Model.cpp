@@ -13,7 +13,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "GLMath.h"
+#include "Maths.h"
 #include <assert.h>
 
 using namespace std;

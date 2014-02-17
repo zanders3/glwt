@@ -21,7 +21,7 @@
     <ClInclude Include="glwt\GL.h" />
     <ClInclude Include="glwt\glcorearb.h" />
     <ClInclude Include="glwt\glwt.h" />
-    <ClInclude Include="glwt\GLMath.h" />
+    <ClInclude Include="glwt\Maths.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3AC53B2C-D91F-49A0-B120-0936F3B44516}</ProjectGuid>
