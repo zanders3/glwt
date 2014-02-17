@@ -17,10 +17,11 @@ Current Features
 * Modern OpenGL 3.2+ Support
     * The old APIs no longer exist, making things much cleaner.
 * Open a Window in 1 line of code
-* Mac OSX support (OSX 10.7+ only since OpenGL 3.2 support is 10.7+ only)
-* Windows support
+* Multiplatform
+    * Mac OSX support (OSX 10.7+ only since OpenGL 3.2 support is 10.7+ only)
+    * Windows support
 * No additional library dependencies (e.g. GLUT, GLEW, etc)
-* A lightweight graphics library supporting:
+* A lightweight maths library supporting:
     * Matrices
     * 2D and 3D vectors
 
@@ -35,6 +36,7 @@ Sample Code
 
 This will open an 800x600 window and clear the screen to black every frame.
 
+```C++
     bool Game::Setup(int argc, const char** argv)
     {
         //Initialise an OpenGL 3.2 Core context and open a window (set to true for fullscreen)
@@ -63,6 +65,12 @@ This will open an 800x600 window and clear the screen to black every frame.
         //Clear the color and depth buffer
         GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
+```
+
+Compilation
+-----------
+
+There are custom projects set up for each supported platform. On windows open `glwt/glwt.sln` and on Mac open `glwt/glwt.xcodeproj`. The project should compile and display the sample starting project.
 
 Documentation
 -------------
@@ -70,75 +78,104 @@ Documentation
 ### Game ###
 This is the main entry point for the application. Your code goes here.
 
+```C++
     static bool Setup(int argc, const char** argv);
+```
 
 > Replaces your main function (this is platform specific anyway). You should open a window here and initialize OpenGL objects, load textures, etc.
 > Returning false closes the application cleanly.
 
+```C++
     static void Draw(float deltaTime);
+```
 
 > Called every frame with the time in seconds since the last frame.
 
+```C++
     static void Update(float deltaTime);
+```
 
 > Called every frame with the time in seconds since the last frame.
 
+```C++
     static void Resize(int width, int height);
+```
 
 > Called every time the window is resized
 
 ### Window ###
 Handles the window and the creation of an OpenGL context.
 
+```C++
     static bool Open(int width, int height, bool fullscreen, const char* windowTitle);
+```
 
 > Opens a window with the given width, height and window title. Setting fullscreen to true creates a fullscreen window with that screen resolution.
 
+```C++
     static void Close();
+```
 
 > Closes the window, which also closes the whole application.
 
+```C++
     static int Width();
+```
 
 > Returns the current window width.
 
+```C++
     static int Height();
+```
 
 > Returns the current window height.
 
+```C++
     static void ShowMessageBox(const char* message);
+```
 
 > Displays a pop-up dialogue containing the message.
 
 ### GL ###
 The GL class provides access to all of the OpenGL core functions. This is based off the [gl3w library](https://github.com/skaslev/gl3w).
 
+```C++
     static int Init();
+```
 
 > Loads all of the OpenGL functions. This is called automatically by Window::Open(). See http://www.opengl.org/wiki/Load_OpenGL_Functions for more info on why this is needed.
 
+```C++
     static bool IsSupported(int major, int minor);
+```
 
 > Returns true if the current context supports the major and minor version number.
 
+```C++
     static void* GetProcAddress(const char *proc);
+```
 
 > Returns the function call address for an OpenGL function.
 
+```C++
     static const Version& GetVersion();
+```
 
 > Returns a structure representing the OpenGL version.
 
 ### Maths.h ###
 Maths.h basic header only maths library with matrices, vectors and common transforms. This is meant to be as simple as possible and is not optimised in any way. Feel free to contribute if you feel something is missing.
 
+```C++
     struct vec2
     {
         vec2(float x, float y);
     };
+```
 
 > Represents a 2D vector
 
+```C++
     struct vec3
     {
         //multiplies the vector by a scalar, returning the result.
@@ -165,9 +202,11 @@ Maths.h basic header only maths library with matrices, vectors and common transf
         //calculates the cross product with the other vector, returning the result.
         inline vec3 cross(const vec3& other) const
     };
+```
 
 > Represents a 3D vector with all of the basic 3D vector operations.
 
+```C++
     struct mat4
     {
         float rows[16];
@@ -188,5 +227,6 @@ Maths.h basic header only maths library with matrices, vectors and common transf
         //the aspect ratio, the near culling plane and far culling plane.
         static mat4 proj(float fov, float aspect, float n, float f)
     };
+```
 
 > Represents a 4x4 matrix with some functions to calculate common matrix transformations.
