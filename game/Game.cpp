@@ -38,7 +38,7 @@ GLuint vertexBuffer, indexBuffer, vertexLayout, vertexShader, fragmentShader, sh
 
 bool Game::Setup(int argc, const char** argv)
 {
-    if (!Window::Open(800, 600, false, "Hello World!"))
+    if (!Window::Open(800, 600, false, "H e l l o  World!"))
 		return false;
     
     GL::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);

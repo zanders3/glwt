@@ -2,11 +2,10 @@
 #include <GL/GL.h>
 #include "glwt.h"
 
-const char* gWindowTitle = "GLWT";
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 HCURSOR gPointerCursor;
 HINSTANCE gHInstance;
+const char* gWindowTitle = "GLWT";
 
 #pragma comment (lib, "opengl32.lib")
 
@@ -29,19 +28,22 @@ int __stdcall WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstanc
 bool Window::Open(int width, int height, bool fullscreen, const char* windowTitle)
 {
 	gWindowTitle = windowTitle;
-
 	gPointerCursor = LoadCursor(NULL, IDC_ARROW);
 
-	WNDCLASSA wc      = {0}; 
+	WNDCLASS wc = {0};
 	wc.lpfnWndProc   = WndProc;
 	wc.hInstance     = gHInstance;
 	wc.hbrBackground = (HBRUSH)(COLOR_BACKGROUND);
-	wc.lpszClassName = "GLWT";
+	wc.lpszClassName = L"GLWT";
 	wc.style = CS_OWNDC;
-	if( !RegisterClassA(&wc) )
+	if( !RegisterClass(&wc) )
 		return false;
 
-	CreateWindowA(wc.lpszClassName,gWindowTitle,WS_OVERLAPPEDWINDOW|WS_VISIBLE,0,0,width,height,0,0,gHInstance,0);
+	const size_t WCHARBUF = 100;
+	wchar_t  wszDest[WCHARBUF];
+	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, windowTitle, -1, wszDest, WCHARBUF);
+
+	CreateWindow(wc.lpszClassName, &wszDest[0], WS_OVERLAPPEDWINDOW|WS_VISIBLE, 0, 0, width, height, 0, 0, gHInstance, 0);
 
 	return true;
 }
