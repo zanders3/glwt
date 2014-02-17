@@ -28,7 +28,6 @@ Planned Features
 ----------------
 
 * Input API (Mouse Input, Keyboard Input)
-* Event API (Window Resize, Window Close, etc)
 * Extend Support to Linux (shout if you want it and I'll make it a priority :)
 
 Sample Code
@@ -49,7 +48,17 @@ This will open an 800x600 window and clear the screen to black every frame.
         return true;
     }
 
+    void Game::Resize(int width, int height)
+    {
+        //Called when the window is resized
+    }
+
     void Game::Update(float dt)
+    {
+        //Nothing to update
+    }
+
+    void Game::Draw(float dt)
     {
         //Clear the color and depth buffer
         GL::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -67,6 +76,10 @@ This is the main entry point for the application. Your code goes here.
 > Returning false closes the application cleanly.
 
     static void Draw(float deltaTime);
+
+> Called every frame with the time in seconds since the last frame.
+
+    static void Update(float deltaTime);
 
 > Called every frame with the time in seconds since the last frame.
 
@@ -123,6 +136,7 @@ Maths.h basic header only maths library with matrices, vectors and common transf
     {
         vec2(float x, float y);
     };
+
 > Represents a 2D vector
 
     struct vec3
@@ -151,6 +165,7 @@ Maths.h basic header only maths library with matrices, vectors and common transf
         //calculates the cross product with the other vector, returning the result.
         inline vec3 cross(const vec3& other) const
     };
+
 > Represents a 3D vector with all of the basic 3D vector operations.
 
     struct mat4
@@ -173,4 +188,5 @@ Maths.h basic header only maths library with matrices, vectors and common transf
         //the aspect ratio, the near culling plane and far culling plane.
         static mat4 proj(float fov, float aspect, float n, float f)
     };
+
 > Represents a 4x4 matrix with some functions to calculate common matrix transformations.
