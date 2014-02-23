@@ -29,6 +29,8 @@ extern void glSwapAPPLE(void);
 {
     self = [super initWithFrame:frameRect pixelFormat:format];
     
+    openGLReady = false;
+    
     //ensure vbsynch is on!
     [[self openGLContext] setValues:(GLint[]){1} forParameter:NSOpenGLCPSwapInterval];
     
@@ -43,9 +45,14 @@ extern void glSwapAPPLE(void);
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSModalPanelRunLoopMode];
-
     
     return self;
+}
+
+-(void)reshape
+{
+    if (Window::Width() > 0)
+        Game::Resize(Window::Width(), Window::Height());
 }
 
 -(void)drawRect:(NSRect)dirtyRect
@@ -59,8 +66,11 @@ extern void glSwapAPPLE(void);
     
     float elapsedSeconds = (float)elapsed * 0.000000001f;
     
-    if (Window::Width() > 0)
+    if (openGLReady)
+    {
+        Game::Update(elapsedSeconds);
         Game::Draw(elapsedSeconds);
+    }
     else
     {
         GL::ClearColor(0.0f, 0.0f, 0.0f, 0.0f);

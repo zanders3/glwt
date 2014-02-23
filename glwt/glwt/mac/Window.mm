@@ -73,8 +73,7 @@ bool Window::Open(int width, int height, bool fullscreen, const char* windowTitl
     [window setContentView: fullScreenView];
     [window makeKeyAndOrderFront:[AppDelegate delegate]];
     
-    gWidth = (int)mainDisplayRect.size.width;
-    gHeight = (int)mainDisplayRect.size.height;
+    fullScreenView->openGLReady = true;
     
     return true;
 }
@@ -86,12 +85,12 @@ void Window::Close()
 
 int Window::Width()
 {
-    return gWidth;
+    return window != nil ? [[window contentView] bounds].size.width : 0;
 }
 
 int Window::Height()
 {
-    return gHeight;
+    return window != nil ? [[window contentView] bounds].size.height : 0;
 }
 
 void Window::ShowMessageBox(const char *message)

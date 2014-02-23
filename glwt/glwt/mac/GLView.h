@@ -14,5 +14,8 @@
 {
     uint64_t lastFrame;
     mach_timebase_info_data_t info;
+    
+    @public
+    bool openGLReady;
 }
 @end

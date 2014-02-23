@@ -29,13 +29,13 @@
 		FA2B5BE6169A4B3500F143BD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FA2B5BE7169A4B3500F143BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FA2B5C02169A4CBB00F143BD /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		FA89E90B18BA449D00715676 /* Maths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Maths.h; sourceTree = "<group>"; };
 		FACF276C169B8A04000D4C13 /* GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL.cpp; sourceTree = "<group>"; };
 		FACF276D169B8A04000D4C13 /* GL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GL.h; sourceTree = "<group>"; };
 		FACF276E169B8A04000D4C13 /* gl3w_gen.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = gl3w_gen.py; sourceTree = "<group>"; };
 		FACF276F169B8A04000D4C13 /* glcorearb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glcorearb.h; sourceTree = "<group>"; };
 		FAD7F1CA189C460800829A7D /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Model.cpp; path = ../game/Model.cpp; sourceTree = "<group>"; };
 		FAD7F1CB189C460800829A7D /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../game/Model.h; sourceTree = "<group>"; };
-		FADB337218A7AF6D00C207EB /* Math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = "<group>"; };
 		FAEB214D169B63E400B5EA1D /* glwt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glwt.h; sourceTree = "<group>"; };
 		FAEB2150169B64A900B5EA1D /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = ../game/Game.cpp; sourceTree = "<group>"; };
 		FAEB2156169B74EC00B5EA1D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -107,7 +107,7 @@
 		FA2B5BE8169A4B3500F143BD /* glwt */ = {
 			isa = PBXGroup;
 			children = (
-				FADB337218A7AF6D00C207EB /* Math.h */,
+				FA89E90B18BA449D00715676 /* Maths.h */,
 				FACF276C169B8A04000D4C13 /* GL.cpp */,
 				FACF276D169B8A04000D4C13 /* GL.h */,
 				FACF276E169B8A04000D4C13 /* gl3w_gen.py */,
