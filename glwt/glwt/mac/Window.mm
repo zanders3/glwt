@@ -19,22 +19,18 @@ bool Window::Open(int width, int height, bool fullscreen, const char* windowTitl
 {
     NSRect screenSize = [[NSScreen mainScreen] frame];
     
-    NSRect mainDisplayRect = fullscreen ? screenSize : NSMakeRect((screenSize.size.width-width)/2, (screenSize.size.height-height)/2, width, height);
+    NSRect mainDisplayRect = NSMakeRect((screenSize.size.width-width)/2, (screenSize.size.height-height)/2, width, height);
     window = [[NSWindow alloc]
                         initWithContentRect: mainDisplayRect
-                        styleMask: fullscreen ?
-                            NSBorderlessWindowMask :
-                            NSClosableWindowMask|NSResizableWindowMask|NSMiniaturizableWindowMask|NSTitledWindowMask
+                        styleMask: NSClosableWindowMask|NSResizableWindowMask|NSMiniaturizableWindowMask|NSTitledWindowMask
                         backing:NSBackingStoreBuffered
                         defer:YES];
     [window setTitle:[NSString stringWithUTF8String:windowTitle]];
     [window setOpaque:YES];
+    [window setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
     
     if (fullscreen)
-    {
-        [window setLevel:NSMainMenuWindowLevel+1];
-        [window setHidesOnDeactivate:YES];
-    }
+        [window toggleFullScreen:nil];
    
     //Request an OpenGL 3.2 context (bleurgh... horrible. wtf apple)
     CGLPixelFormatAttribute attribs[] =
